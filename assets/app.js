@@ -21,6 +21,30 @@
   var TEXT = {
     allCourses: "All courses",
     loading: "Loading…",
+    subject: "Subject",
+    type: "Type",
+    skill: "Skill",
+    duration: "Duration",
+    courseType: "Course",
+    sortBy: "Sort by:",
+    sortRecommended: "Recommended",
+    sortAZ: "Title A to Z",
+    sortShortest: "Shortest first",
+    sortLongest: "Longest first",
+    filters: "Filters",
+    clearFilters: "Clear all filters",
+    showAll: "Show all {n}",
+    showFewer: "Show fewer",
+    durShort: "Under 2 hours",
+    durMedium: "2 to 5 hours",
+    durLong: "More than 5 hours",
+    hoursN: "{n} hours",
+    hour1: "1 hour",
+    minutesN: "{n} minutes",
+    percentDone: "{n}% done",
+    completed: "Completed",
+    matching: "{shown} of {total} courses match your filters.",
+    noResults: "No courses match these filters.",
     startCourse: "Start course",
     continueCourse: "Continue",
     reviewCourse: "Review course",
@@ -137,6 +161,150 @@
 
   function lessonCountText(n) {
     return n === 1 ? t("oneLesson") : t("lessonsCount", { n: n });
+  }
+
+  /* Short duration for cards: "45 minutes", "1 hour", "2.5 hours" */
+  function formatDuration(minutes) {
+    if (!minutes) return "";
+    if (minutes < 55) return t("minutesN", { n: Math.max(5, Math.round(minutes / 5) * 5) });
+    var h = Math.round(minutes / 30) / 2;
+    return h <= 1 ? t("hour1") : t("hoursN", { n: h });
+  }
+
+  /* ---------------- icons ---------------- */
+
+  function svgIcon(paths, cls) {
+    return '<svg class="' + (cls || "icon") + '" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" ' +
+      'stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + paths + "</svg>";
+  }
+
+  var ICONS = {
+    subject: '<path d="M3 9.5 12 4l9 5.5"/><path d="M5.5 10v8M10 10v8M14 10v8M18.5 10v8"/><path d="M3 20h18"/>',
+    type: '<rect x="5" y="3" width="14" height="18" rx="2"/><path d="M9 7.5h6M9 11h6"/>',
+    skill: '<circle cx="12" cy="12" r="3"/><path d="M12 2.8v2.4M12 18.8v2.4M2.8 12h2.4M18.8 12h2.4M5.5 5.5l1.7 1.7M16.8 16.8l1.7 1.7M5.5 18.5l1.7-1.7M16.8 7.2l1.7-1.7"/><circle cx="12" cy="12" r="6.6"/>',
+    level: '<path d="M5 8h14M5 12h14M5 16h14"/>',
+    duration: '<circle cx="12" cy="13.5" r="7.5"/><path d="M12 13.5V9.6M9.8 2.8h4.4M12 2.8v3.2M18 6.6l1.3-1.3"/>',
+    chevron: '<path d="M6 9l6 6 6-6"/>',
+    sort: '<path d="M4 6h10M4 11h7M4 16h5M17.5 5v14M14.5 16l3 3 3-3"/>',
+    filter: '<path d="M4 5h16l-6 7.5V19l-4-2v-4.5z"/>',
+    course: '<path d="M3 5.6c2.6-1 5.6-1 9 1 3.4-2 6.4-2 9-1v13.6c-2.6-1-5.6-1-9 1-3.4-2-6.4-2-9-1z"/><path d="M12 6.6v13.6"/>',
+    check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
+    lessons: '<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',
+    teacher: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6"/>'
+  };
+
+  var BADGES = {
+    web: '<path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 4l-3 16"/>',
+    code: '<path d="M8.5 4C6.5 4 6 5 6 7v2.5C6 11 5 12 3.5 12 5 12 6 13 6 14.5V17c0 2 .5 3 2.5 3M15.5 4c2 0 2.5 1 2.5 3v2.5c0 1.5 1 2.5 2.5 2.5-1.5 0-2.5 1-2.5 2.5V17c0 2-.5 3-2.5 3"/>',
+    branches: '<circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="6.5" r="2.2"/><path d="M6 7.2v9.6M18 8.7c0 5.3-6.5 4-11 8.3"/>',
+    terminal: '<path d="M4 6.5l5.5 5.5L4 17.5M12 18h8"/>',
+    chart: '<path d="M5 19v-6M10 19V5M15 19v-9M20 19v-4"/>'
+  };
+
+  /* Pick a cover style from the course's "cover" field, or guess from its tags */
+  function coverKind(course) {
+    if (course.cover && BADGES[course.cover]) return course.cover;
+    var tags = (course.tags || course.skills || []).join(" ").toLowerCase() + " " + course.title.toLowerCase();
+    if (/git|version/.test(tags)) return "branches";
+    if (/linux|terminal|bash|shell|command/.test(tags)) return "terminal";
+    if (/html|css|web/.test(tags)) return "web";
+    if (/python|program|code|java/.test(tags)) return "code";
+    return "chart";
+  }
+
+  function seeded(str) {
+    var h = 2166136261;
+    for (var i = 0; i < str.length; i++) { h ^= str.charCodeAt(i); h = Math.imul(h, 16777619); }
+    return function () {
+      h += 0x6D2B79F5;
+      var x = Math.imul(h ^ (h >>> 15), 1 | h);
+      x ^= x + Math.imul(x ^ (x >>> 7), 61 | x);
+      return ((x ^ (x >>> 14)) >>> 0) / 4294967296;
+    };
+  }
+
+  var coverCount = 0;
+
+  /* Generated cover art; a course "image" in courses.json replaces it */
+  function coverHtml(course) {
+    var kind = coverKind(course);
+    var badge = '<span class="card-badge">' + svgIcon(BADGES[kind], "badge-icon").replace('stroke-width="1.8"', 'stroke-width="2.2"') + "</span>";
+    if (course.image) {
+      var src = /^(https?:)?\/\//.test(course.image) ? course.image : CONTENT_DIR + course.image;
+      return '<div class="card-cover"><img src="' + esc(src) + '" alt="" loading="lazy">' + badge + "</div>";
+    }
+    var id = "cv" + (++coverCount);
+    var accent = course.color || "#2563eb";
+    var rnd = seeded(course.id);
+    var light = "#8fb4ff", bright = "#4d7dff", deep = "#0d2378";
+    var art = "";
+
+    function win(x, y, w, h, fill, op) {
+      return '<g opacity="' + (op || 1) + '"><rect x="' + x + '" y="' + y + '" width="' + w + '" height="' + h + '" rx="8" fill="' + fill + '" stroke="' + bright + '" stroke-opacity=".7"/>' +
+        '<path d="M' + x + " " + (y + 18) + "h" + w + '" stroke="' + bright + '" stroke-opacity=".5"/>' +
+        '<circle cx="' + (x + 11) + '" cy="' + (y + 9) + '" r="3" fill="' + accent + '"/><circle cx="' + (x + 21) + '" cy="' + (y + 9) + '" r="3" fill="' + light + '" fill-opacity=".6"/><circle cx="' + (x + 31) + '" cy="' + (y + 9) + '" r="3" fill="' + light + '" fill-opacity=".35"/></g>';
+    }
+
+    if (kind === "chart") {
+      var tops = [];
+      for (var i = 0; i < 34; i++) {
+        var x = 30 + i * 9.4;
+        var hgt = 18 + Math.pow(Math.sin(i / 5) * 0.5 + 0.5, 1.5) * 70 + rnd() * 40;
+        tops.push(x + 3 + "," + (165 - hgt));
+        art += '<rect x="' + x.toFixed(1) + '" y="' + (165 - hgt).toFixed(1) + '" width="6" height="' + hgt.toFixed(1) + '" rx="2" fill="url(#' + id + 'bar)"/>';
+      }
+      art = '<linearGradient id="' + id + 'bar" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="' + light + '"/><stop offset="1" stop-color="' + bright + '" stop-opacity=".1"/></linearGradient>' +
+        art + '<polyline points="' + tops.join(" ") + '" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.5"/>';
+    } else if (kind === "web") {
+      art = win(92, 52, 170, 112, deep, 0.55) + win(140, 22, 196, 132, "#0b1f6b") +
+        '<rect x="152" y="50" width="172" height="22" rx="4" fill="' + accent + '" fill-opacity=".85"/>' +
+        '<rect x="152" y="80" width="80" height="62" rx="4" fill="' + light + '" fill-opacity=".25"/>';
+      for (var j = 0; j < 5; j++) {
+        art += '<rect x="242" y="' + (82 + j * 12) + '" width="' + (40 + rnd() * 42).toFixed(0) + '" height="5" rx="2.5" fill="' + light + '" fill-opacity=".55"/>';
+      }
+    } else if (kind === "code") {
+      art = win(110, 20, 228, 140, "#0a1a5c");
+      var palette = [accent, light, bright, "#ffffff"];
+      for (var k = 0; k < 8; k++) {
+        var yy = 50 + k * 13, xx = 146 + (k % 3 === 1 ? 14 : k % 4 === 3 ? 28 : 0);
+        art += '<rect x="122" y="' + yy + '" width="10" height="5" rx="2" fill="' + light + '" fill-opacity=".3"/>';
+        var segs = 1 + Math.floor(rnd() * 3);
+        for (var s = 0; s < segs; s++) {
+          var w2 = 16 + rnd() * 46;
+          if (xx + w2 > 328) break;
+          art += '<rect x="' + xx.toFixed(0) + '" y="' + yy + '" width="' + w2.toFixed(0) + '" height="6" rx="3" fill="' + palette[Math.floor(rnd() * palette.length)] + '" fill-opacity=".85"/>';
+          xx += w2 + 6;
+        }
+      }
+    } else if (kind === "branches") {
+      var ys = 112, xs = [40, 92, 144, 196, 248, 300];
+      art = '<path d="M20 ' + ys + 'H345" stroke="' + light + '" stroke-width="4" stroke-opacity=".8"/>' +
+        '<path d="M92 ' + ys + 'C120 ' + ys + " 118 60 150 60H230C262 60 262 " + ys + " 290 " + ys + '" fill="none" stroke="' + accent + '" stroke-width="4"/>' +
+        '<path d="M196 ' + ys + 'C220 ' + ys + ' 216 152 244 152H330" fill="none" stroke="' + bright + '" stroke-width="4" stroke-dasharray="1 9" stroke-linecap="round"/>';
+      xs.forEach(function (x) { art += '<circle cx="' + x + '" cy="' + ys + '" r="7" fill="#071548" stroke="' + light + '" stroke-width="3"/>'; });
+      [170, 210].forEach(function (x) { art += '<circle cx="' + x + '" cy="60" r="7" fill="#071548" stroke="' + accent + '" stroke-width="3"/>'; });
+      art += '<circle cx="290" cy="' + ys + '" r="9" fill="' + accent + '"/>';
+    } else {
+      art = win(104, 20, 236, 142, "#050b26") +
+        '<g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="' + light + '">' +
+        '<text x="118" y="60"><tspan fill="' + accent + '">$</tspan> whoami</text>' +
+        '<text x="118" y="80" fill-opacity=".7">student</text>' +
+        '<text x="118" y="104"><tspan fill="' + accent + '">$</tspan> ls projects</text>' +
+        '<text x="118" y="124" fill-opacity=".7">notes.txt  website  game.py</text>' +
+        '<text x="118" y="148"><tspan fill="' + accent + '">$</tspan></text></g>' +
+        '<rect x="132" y="138" width="8" height="13" fill="' + accent + '"/>';
+    }
+
+    return '<div class="card-cover"><svg viewBox="0 0 360 180" preserveAspectRatio="xMidYMid slice" aria-hidden="true">' +
+      "<defs>" +
+        '<linearGradient id="' + id + 'bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#091a5e"/><stop offset=".55" stop-color="#0b2a9e"/><stop offset="1" stop-color="#040c2c"/></linearGradient>' +
+        '<radialGradient id="' + id + 'glow" cx=".72" cy=".3" r=".65"><stop offset="0" stop-color="' + accent + '" stop-opacity=".5"/><stop offset="1" stop-color="' + accent + '" stop-opacity="0"/></radialGradient>' +
+        '<pattern id="' + id + 'dots" width="12" height="12" patternUnits="userSpaceOnUse"><circle cx="1.5" cy="1.5" r="1" fill="#9db9ff" fill-opacity=".16"/></pattern>' +
+      "</defs>" +
+      '<rect width="360" height="180" fill="url(#' + id + 'bg)"/>' +
+      '<rect width="360" height="180" fill="url(#' + id + 'dots)"/>' +
+      '<rect width="360" height="180" fill="url(#' + id + 'glow)"/>' +
+      art + "</svg>" + badge + "</div>";
   }
 
   /* ---------------- progress storage ---------------- */
@@ -278,78 +446,245 @@
     return html + "</ul>";
   }
 
-  /* ---------------- views ---------------- */
+  /* ---------------- catalog (home) ---------------- */
+
+  // Remembered while the page is open, so filters survive visiting a course and coming back
+  var catalog = { sel: {}, sort: "recommended", query: "", open: {}, showFilters: false, allSkills: false };
+
+  function durationBucket(minutes) {
+    if (!minutes) return "";
+    if (minutes < 120) return t("durShort");
+    if (minutes <= 300) return t("durMedium");
+    return t("durLong");
+  }
+
+  function filterGroups(courses) {
+    var defs = [
+      { key: "subject", icon: ICONS.subject, get: function (c) { return [c.subject]; } },
+      { key: "type", icon: ICONS.type, get: function (c) { return [c.type || t("courseType")]; } },
+      { key: "skill", icon: ICONS.skill, get: function (c) { return c.skills || c.tags || []; } },
+      { key: "level", icon: ICONS.level, get: function (c) { return [c.level]; } },
+      { key: "duration", icon: ICONS.duration, get: function (c) { return [durationBucket(stats(c).minutes)]; } }
+    ];
+    var levelOrder = ["beginner", "intermediate", "advanced"];
+    var durOrder = [t("durShort"), t("durMedium"), t("durLong")];
+    return defs.map(function (d) {
+      var counts = {};
+      courses.forEach(function (c) {
+        d.get(c).forEach(function (v) { if (v) counts[v] = (counts[v] || 0) + 1; });
+      });
+      var values = Object.keys(counts);
+      values.sort(function (a, b) {
+        if (d.key === "duration") return durOrder.indexOf(a) - durOrder.indexOf(b);
+        if (d.key === "level") {
+          var ia = levelOrder.indexOf(a.toLowerCase()), ib = levelOrder.indexOf(b.toLowerCase());
+          if (ia !== ib) return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+        }
+        if (d.key === "skill" && counts[b] !== counts[a]) return counts[b] - counts[a];
+        return a.localeCompare(b);
+      });
+      return { key: d.key, icon: d.icon, get: d.get, values: values, counts: counts };
+    }).filter(function (g) { return g.values.length > 0; });
+  }
+
+  function activeFilterCount() {
+    var n = 0;
+    Object.keys(catalog.sel).forEach(function (k) { n += catalog.sel[k].length; });
+    return n;
+  }
 
   function renderHome() {
     setTitle("");
     var courses = visibleCourses();
+    var groups = filterGroups(courses);
     var totals = { lessons: 0, done: 0 };
-    courses.forEach(function (c) {
-      var s = stats(c);
-      totals.lessons += s.total;
-      totals.done += s.done;
-    });
+    courses.forEach(function (c) { var s = stats(c); totals.lessons += s.total; totals.done += s.done; });
 
-    var overall;
-    if (totals.done === 0) overall = t("overallNone", { lessons: totals.lessons, courses: courses.length });
-    else if (totals.done === totals.lessons) overall = t("overallAll");
-    else overall = t("overallSome", { done: "<strong>" + totals.done + "</strong>", total: totals.lessons });
+    var SKILL_LIMIT = 6;
+    var sidebar = '<aside class="filters panel" id="filters" aria-label="' + esc(t("filters")) + '">' +
+      (courses.length > 6 ?
+        '<div class="filters-search"><label class="visually-hidden" for="q">' + t("searchLabel") + "</label>" +
+        '<input id="q" type="search" autocomplete="off" placeholder="' + esc(t("searchPlaceholder")) + '" value="' + esc(catalog.query) + '"></div>' : "") +
+      groups.map(function (g) {
+        var sel = catalog.sel[g.key] || [];
+        var vals = g.values;
+        var limited = g.key === "skill" && vals.length > SKILL_LIMIT + 1 && !catalog.allSkills;
+        if (limited) vals = vals.slice(0, SKILL_LIMIT);
+        return '<details class="filter-group" data-group="' + g.key + '"' + (catalog.open[g.key] ? " open" : "") + ">" +
+          "<summary>" + svgIcon(g.icon) + '<span class="label">' + t(g.key) + "</span>" +
+            '<span class="active-count"' + (sel.length ? "" : " hidden") + ">" + sel.length + "</span>" +
+            svgIcon(ICONS.chevron, "chev") + "</summary>" +
+          '<ul class="filter-options">' +
+            vals.map(function (v) {
+              return '<li><label><input type="checkbox" value="' + esc(v) + '"' + (sel.indexOf(v) >= 0 ? " checked" : "") + ">" +
+                '<span class="opt-label">' + esc(v) + '</span><span class="opt-count">' + g.counts[v] + "</span></label></li>";
+            }).join("") +
+          "</ul>" +
+          (g.key === "skill" && g.values.length > SKILL_LIMIT + 1 ?
+            '<button type="button" class="link-button filter-more" data-act="more-skills">' +
+            (catalog.allSkills ? t("showFewer") : t("showAll", { n: g.values.length })) + "</button>" : "") +
+        "</details>";
+      }).join("") +
+      '<button type="button" class="link-button filters-clear" data-act="clear"' + (activeFilterCount() ? "" : " hidden") + ">" + t("clearFilters") + "</button>" +
+    "</aside>";
 
-    var showSearch = courses.length > 5;
+    var sortOptions = [
+      ["recommended", t("sortRecommended")], ["az", t("sortAZ")],
+      ["shortest", t("sortShortest")], ["longest", t("sortLongest")]
+    ];
 
     main.innerHTML =
-      '<div class="wrap">' +
-        '<section class="home-hero">' +
-          '<h1 tabindex="-1">' + esc(SITE.title || "Courses") + "</h1>" +
-          (SITE.tagline ? '<p class="tagline">' + esc(SITE.tagline) + "</p>" : "") +
-          (courses.length ? '<p class="overall">' + overall + "</p>" : "") +
+      '<div class="catalog' + (catalog.showFilters ? " show-filters" : "") + '">' +
+        sidebar +
+        '<section class="results">' +
+          '<div class="results-bar panel">' +
+            "<div>" +
+              '<h1 tabindex="-1">' + t("allCourses") + "</h1>" +
+              '<p class="sub" id="results-sub"></p>' +
+            "</div>" +
+            '<div class="results-tools">' +
+              '<button type="button" class="btn btn-quiet filters-toggle" data-act="toggle-filters" aria-controls="filters" aria-expanded="' + catalog.showFilters + '">' +
+                svgIcon(ICONS.filter) + "<span>" + t("filters") + "</span></button>" +
+              '<label class="sort">' + svgIcon(ICONS.sort) + "<span>" + t("sortBy") + "</span>" +
+                '<select id="sort">' + sortOptions.map(function (o) {
+                  return '<option value="' + o[0] + '"' + (catalog.sort === o[0] ? " selected" : "") + ">" + o[1] + "</option>";
+                }).join("") + "</select></label>" +
+            "</div>" +
+          "</div>" +
+          '<ul class="cards" id="cards"></ul>' +
+          '<div class="empty-state panel" id="empty" hidden></div>' +
         "</section>" +
-        (showSearch ?
-          '<div class="course-search"><label class="visually-hidden" for="q">' + t("searchLabel") + "</label>" +
-          '<input id="q" type="search" autocomplete="off" placeholder="' + esc(t("searchPlaceholder")) + '"></div>' : "") +
-        '<ul class="lines animate-routes" id="course-list"></ul>' +
-        '<p class="empty-state" id="empty" hidden></p>' +
       "</div>";
 
-    var list = document.getElementById("course-list");
+    var root = main.querySelector(".catalog");
+    var list = document.getElementById("cards");
     var empty = document.getElementById("empty");
+    var sub = document.getElementById("results-sub");
 
-    function draw(query) {
-      var q = (query || "").trim().toLowerCase();
-      var shown = courses.filter(function (c) {
-        if (!q) return true;
-        var hay = [c.title, c.summary, c.level, (c.tags || []).join(" ")].join(" ").toLowerCase();
-        return hay.indexOf(q) !== -1;
+    function matches(c) {
+      for (var i = 0; i < groups.length; i++) {
+        var g = groups[i], sel = catalog.sel[g.key];
+        if (!sel || !sel.length) continue;
+        var vals = g.get(c);
+        if (!vals.some(function (v) { return sel.indexOf(v) >= 0; })) return false;
+      }
+      var q = catalog.query.trim().toLowerCase();
+      if (q) {
+        var hay = [c.title, c.summary, c.subject, c.level, (c.tags || c.skills || []).join(" ")].join(" ").toLowerCase();
+        if (hay.indexOf(q) === -1) return false;
+      }
+      return true;
+    }
+
+    function draw() {
+      var shown = courses.filter(matches);
+      var order = courses.slice();
+      shown.sort(function (a, b) {
+        if (catalog.sort === "az") return a.title.localeCompare(b.title);
+        if (catalog.sort === "shortest") return stats(a).minutes - stats(b).minutes;
+        if (catalog.sort === "longest") return stats(b).minutes - stats(a).minutes;
+        return order.indexOf(a) - order.indexOf(b);
       });
-      list.innerHTML = shown.map(courseRow).join("");
+      list.innerHTML = shown.map(courseCard).join("");
+
+      var filtered = activeFilterCount() > 0 || catalog.query.trim();
+      if (filtered) sub.textContent = t("matching", { shown: shown.length, total: courses.length });
+      else if (totals.done > 0 && totals.done === totals.lessons) sub.textContent = t("overallAll");
+      else if (totals.done > 0) sub.innerHTML = t("overallSome", { done: "<strong>" + totals.done + "</strong>", total: totals.lessons });
+      else sub.textContent = SITE.tagline || t("overallNone", { lessons: totals.lessons, courses: courses.length });
+
       empty.hidden = shown.length > 0;
-      if (!shown.length) empty.textContent = courses.length ? t("noMatches", { q: query }) : t("noCourses");
-    }
-    draw("");
-
-    if (showSearch) {
-      document.getElementById("q").addEventListener("input", function (e) {
-        list.classList.remove("animate-routes");
-        draw(e.target.value);
+      if (!shown.length) {
+        empty.innerHTML = courses.length ?
+          "<p>" + t("noResults") + '</p><button type="button" class="btn btn-quiet" data-act="clear">' + t("clearFilters") + "</button>" :
+          "<p>" + t("noCourses") + "</p>";
+      }
+      root.querySelectorAll('[data-act="clear"]').forEach(function (b) {
+        if (b.classList.contains("filters-clear")) b.hidden = !activeFilterCount();
       });
+      root.querySelectorAll(".filter-group").forEach(function (d) {
+        var n = (catalog.sel[d.getAttribute("data-group")] || []).length;
+        var badge = d.querySelector(".active-count");
+        badge.textContent = n;
+        badge.hidden = !n;
+      });
+      var tog = root.querySelector(".filters-toggle span");
+      if (tog) tog.textContent = t("filters") + (activeFilterCount() ? " (" + activeFilterCount() + ")" : "");
     }
+    draw();
+
+    root.addEventListener("change", function (e) {
+      var el = e.target;
+      if (el.id === "sort") { catalog.sort = el.value; draw(); return; }
+      var group = el.closest && el.closest(".filter-group");
+      if (group && el.type === "checkbox") {
+        var key = group.getAttribute("data-group");
+        var sel = catalog.sel[key] || (catalog.sel[key] = []);
+        var i = sel.indexOf(el.value);
+        if (el.checked && i < 0) sel.push(el.value);
+        if (!el.checked && i >= 0) sel.splice(i, 1);
+        draw();
+      }
+    });
+    root.addEventListener("toggle", function (e) {
+      var d = e.target;
+      if (d.classList && d.classList.contains("filter-group")) catalog.open[d.getAttribute("data-group")] = d.open;
+    }, true);
+    root.addEventListener("click", function (e) {
+      var btn = e.target.closest && e.target.closest("[data-act]");
+      if (!btn) return;
+      var act = btn.getAttribute("data-act");
+      if (act === "clear") {
+        catalog.sel = {};
+        catalog.query = "";
+        root.querySelectorAll(".filter-group input").forEach(function (i) { i.checked = false; });
+        var q = document.getElementById("q");
+        if (q) q.value = "";
+        draw();
+      } else if (act === "toggle-filters") {
+        catalog.showFilters = !catalog.showFilters;
+        root.classList.toggle("show-filters", catalog.showFilters);
+        btn.setAttribute("aria-expanded", String(catalog.showFilters));
+      } else if (act === "more-skills") {
+        catalog.allSkills = !catalog.allSkills;
+        catalog.open.skill = true;
+        renderHome();
+        var b = main.querySelector('[data-act="more-skills"]');
+        if (b) b.focus();
+      }
+    });
+    var search = document.getElementById("q");
+    if (search) search.addEventListener("input", function () { catalog.query = search.value; draw(); });
   }
 
-  function courseRow(c) {
+  function courseCard(c) {
     var s = stats(c);
-    var cta = s.finished ? t("reviewCourse") : s.done > 0 ? t("continueCourse") : t("startCourse");
-    var meta = "";
-    if (c.level) meta += "<div><dt>" + t("level") + "</dt><dd>" + esc(c.level) + "</dd></div>";
-    meta += "<div><dt>" + t("lessons") + "</dt><dd>" + s.total + "</dd></div>";
-    if (s.minutes) meta += "<div><dt>" + t("time") + "</dt><dd>" + formatTime(s.minutes) + "</dd></div>";
-    return '<li class="line-row"' + lineStyle(c) + '><a href="' + href("course", c.id) + '">' +
-      '<div class="line-head"><h2>' + esc(c.title) + "</h2>" +
-      (c.summary ? "<p>" + esc(c.summary) + "</p>" : "") + "</div>" +
-      routeH(c, s) +
-      '<dl class="line-meta">' + meta + "</dl>" +
-      '<span class="line-cta"><span class="btn' + (s.done > 0 ? "" : " btn-quiet") + '">' + cta + "</span></span>" +
-      "</a></li>";
+    var status;
+    if (s.finished) status = '<span class="card-status finished">' + svgIcon(ICONS.check) + " " + t("completed") + "</span>";
+    else if (s.done > 0) status = '<span class="card-status started">' + t("percentDone", { n: Math.round(s.done / s.total * 100) }) + "</span>";
+    else status = '<span class="card-status">' + lessonCountText(s.total) + "</span>";
+
+    return '<li class="card"' + lineStyle(c) + '><a href="' + href("course", c.id) + '">' +
+      '<div class="card-main">' +
+        coverHtml(c) +
+        '<div class="card-body">' +
+          '<h2 class="card-title">' + esc(c.title) + "</h2>" +
+          (c.summary ? '<p class="card-summary">' + esc(c.summary) + "</p>" : "") +
+          '<div class="card-meta">' +
+            '<span class="card-type">' + svgIcon(ICONS.course) + esc(c.type || t("courseType")) + "</span>" +
+            status +
+          "</div>" +
+        "</div>" +
+        (s.done > 0 && !s.finished ? '<div class="card-progress" aria-hidden="true"><span style="width:' + Math.round(s.done / s.total * 100) + '%"></span></div>' : "") +
+      "</div>" +
+      '<div class="card-foot">' +
+        (c.level ? "<span>" + svgIcon(ICONS.level) + esc(c.level) + "</span>" : "<span></span>") +
+        (s.minutes ? "<span>" + svgIcon(ICONS.duration) + formatDuration(s.minutes) + "</span>" : "") +
+      "</div>" +
+    "</a></li>";
   }
+
+  /* ---------------- course page ---------------- */
 
   function renderCourse(course) {
     setTitle(course.title);
@@ -359,49 +694,56 @@
     var buttonLabel = s.finished ? t("reviewFromStart") :
       s.done === 0 ? t("startFirst") : t("continueTo", { title: s.next.lesson.title });
 
+    function fact(icon, label, value) {
+      return "<div><dt>" + svgIcon(icon) + label + "</dt><dd>" + value + "</dd></div>";
+    }
     var facts = "";
-    if (course.level) facts += "<div><dt>" + t("level") + "</dt><dd>" + esc(course.level) + "</dd></div>";
-    facts += "<div><dt>" + t("lessons") + "</dt><dd>" + s.total + "</dd></div>";
-    if (s.minutes) facts += "<div><dt>" + t("time") + "</dt><dd>" + formatTime(s.minutes) + "</dd></div>";
+    if (course.level) facts += fact(ICONS.level, t("level"), esc(course.level));
+    facts += fact(ICONS.lessons, t("lessons"), s.total);
+    if (s.minutes) facts += fact(ICONS.duration, t("time"), formatTime(s.minutes));
     var teacher = course.teacher || SITE.teacher;
-    if (teacher) facts += "<div><dt>" + t("teacher") + "</dt><dd>" + esc(teacher) + "</dd></div>";
+    if (teacher) facts += fact(ICONS.teacher, t("teacher"), esc(teacher));
 
     var aside = "";
     if (s.finished) {
-      aside += '<section class="aside-block finished"><h2>' + t("finishedTitle") + "</h2><p>" + t("finishedText") + "</p>" +
+      aside += '<section class="panel aside-block finished"><h2>' + t("finishedTitle") + "</h2><p>" + t("finishedText") + "</p>" +
         '<a class="btn" href="' + href("course", course.id, "certificate") + '">' + t("getCertificate") + "</a></section>";
     }
     if (course.outcomes && course.outcomes.length) {
-      aside += '<section class="aside-block"><h2>' + t("outcomes") + '</h2><ul class="outcomes">' +
+      aside += '<section class="panel aside-block"><h2>' + t("outcomes") + '</h2><ul class="outcomes">' +
         course.outcomes.map(function (o) { return "<li>" + inlineMd(o) + "</li>"; }).join("") + "</ul></section>";
     }
     if (course.project) {
       var p = course.project;
-      aside += '<section class="aside-block"><h2>' + esc(p.title || t("project")) + "</h2>" +
+      aside += '<section class="panel aside-block"><h2>' + esc(p.title || t("project")) + "</h2>" +
         (p.description ? "<p>" + inlineMd(p.description) + "</p>" : "") +
         (p.url ? '<a class="btn btn-quiet" href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.button || t("openProject")) + "</a>" : "") +
         "</section>";
     }
 
     main.innerHTML =
-      '<div class="wrap"' + lineStyle(course) + ">" +
-        '<p class="crumbs"><a href="#/">' + t("allCourses") + "</a></p>" +
-        '<section class="course-hero">' +
-          "<div>" +
-            '<h1 tabindex="-1">' + esc(course.title) + "</h1>" +
-            (course.description || course.summary ? '<p class="summary">' + inlineMd(course.description || course.summary) + "</p>" : "") +
-            '<dl class="course-facts">' + facts + "</dl>" +
+      '<section class="course-band"' + lineStyle(course) + ">" +
+        '<div class="wrap">' +
+          '<p class="crumbs"><a href="#/">' + t("allCourses") + "</a>" + (course.subject ? " / " + esc(course.subject) : "") + "</p>" +
+          '<div class="course-hero">' +
+            "<div>" +
+              '<p class="type-label">' + svgIcon(ICONS.course) + esc(course.type || t("courseType")) + "</p>" +
+              '<h1 tabindex="-1">' + esc(course.title) + "</h1>" +
+              (course.description || course.summary ? '<p class="summary">' + inlineMd(course.description || course.summary) + "</p>" : "") +
+              '<dl class="course-facts">' + facts + "</dl>" +
+            "</div>" +
+            '<div class="progress-card">' +
+              coverHtml(course) +
+              '<p class="count"><strong>' + s.done + "</strong> " + t("lessonsDone", { total: s.total }) + "</p>" +
+              routeH(course, s) +
+              (target ? '<a class="btn" href="' + href("course", course.id, target.lesson.id) + '">' + esc(buttonLabel) + "</a>" : "") +
+            "</div>" +
           "</div>" +
-          '<div class="progress-panel">' +
-            '<p class="count"><strong>' + s.done + "</strong> " + t("lessonsDone", { total: s.total }) + "</p>" +
-            routeH(course, s) +
-            (target ? '<a class="btn" href="' + href("course", course.id, target.lesson.id) + '">' + esc(buttonLabel) + "</a>" : "") +
-          "</div>" +
-        "</section>" +
-        '<div class="course-body">' +
-          "<section><h2>" + t("syllabus") + "</h2>" + routeV(course, s, null) + "</section>" +
-          '<aside class="course-aside">' + aside + "</aside>" +
         "</div>" +
+      "</section>" +
+      '<div class="wrap course-body"' + lineStyle(course) + ">" +
+        '<section class="panel syllabus"><h2>' + t("syllabus") + "</h2>" + routeV(course, s, null) + "</section>" +
+        '<aside class="course-aside">' + aside + "</aside>" +
       "</div>";
   }
 

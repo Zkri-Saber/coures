@@ -1,6 +1,6 @@
 # Course site for your students
 
-A free, Udacity-style course website you can host on GitHub Pages. Students get a course catalog, lessons with videos, built-in quizzes, a progress tracker and a printable certificate. You manage everything by editing simple text files, right in your browser on github.com.
+A free course website you can host on GitHub Pages. Students get a course catalog with filters and sorting, lessons with videos, built-in quizzes, a progress tracker and a printable certificate. You manage everything by editing simple text files, right in your browser on github.com.
 
 No servers, no database, no build step, no cost.
 
@@ -87,6 +87,10 @@ At the top of `content/courses.json`:
 | `footer` | Optional custom footer text |
 | `text` | Optional: translate any button or label (see *Translate the site* below) |
 
+### The course catalog
+
+The home page lists every course as a card, with a filter panel (Subject, Type, Skill, Level and Duration) and a **Sort by** menu. The filters are built automatically from each course's fields, so a new subject or level shows up as soon as you use it. Duration is worked out from the lesson minutes. A search box appears above the filters once you have more than six courses.
+
 ### Add a course
 
 1. In `courses.json`, copy an existing course block (from `{` to the matching `}`), paste it after the last course, and put a **comma** between the two courses.
@@ -101,8 +105,13 @@ Course fields:
 | `title` | yes | |
 | `summary` | | One or two sentences for the course list |
 | `description` | | Longer intro on the course page (falls back to `summary`) |
-| `level` | | e.g. `Beginner` |
-| `color` | | The course's line color, e.g. `"#0F8A6C"`. Pick a darker shade so it shows up well |
+| `subject` | | Groups courses in the **Subject** filter, e.g. `Programming` |
+| `type` | | Label on the card and in the **Type** filter, e.g. `Course`, `Workshop`, `Project` (default `Course`) |
+| `level` | | e.g. `Beginner`, `Intermediate`, `Advanced`. Shown on the card and in the **Level** filter |
+| `tags` | | List of skills, e.g. `["Python", "Loops"]`. These make up the **Skill** filter |
+| `color` | | The course's accent color (card badge and progress lines), e.g. `"#2563EB"`. Pick a darker shade so it shows up well |
+| `cover` | | Style of the generated card picture: `web`, `code`, `branches`, `terminal` or `chart`. Leave it out and the site picks one from the tags |
+| `image` | | Your own card picture instead, e.g. `"algebra-1/cover.jpg"` (a file in the course folder, roughly 2:1 wide) |
 | `hours` | | Overrides the total time added up from lesson minutes |
 | `outcomes` | | List of "What you'll learn" points |
 | `project` | | `title`, `description`, `url` (e.g. a Google Form for submissions) and `button` text |
@@ -244,7 +253,7 @@ That needs a backend (a server and database). Free-tier services like Supabase o
 index.html          the single page that runs the site
 assets/app.js       the app (routing, progress, quizzes, certificates)
 assets/styles.css   all styling: colors and fonts are at the top
-assets/fonts/       Atkinson Hyperlegible and Bricolage Grotesque (SIL Open Font License)
+assets/fonts/       Inter (SIL Open Font License)
 assets/vendor/      marked, the Markdown converter (MIT License)
 content/            your courses
 .nojekyll           tells GitHub Pages to publish the files as they are

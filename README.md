@@ -1,4 +1,80 @@
-# Course site for your students
+# Grade 10 Computer Science
+
+<p dir="rtl"><strong>زانستی کۆمپیوتەری پۆلی دە</strong></p>
+
+Free online courses for Zkri Saber's class, with lessons, videos, quizzes, projects and a certificate for each course. Work at your own pace; the site remembers where you stopped. The site is in **Kurdish Sorani** and **English**, and students can switch between them on any page.
+
+<p dir="rtl">وانە، ڤیدیۆ و تاقیکردنەوەی کورت بۆ پۆلەکەمان. بە خێرایی خۆت کار بکە؛ ماڵپەڕەکە لەبیری دەمێنێت لە کوێ وەستایت.</p>
+
+## [Open the course site](https://zkri-saber.github.io/coures/#/)
+
+**https://zkri-saber.github.io/coures/#/**
+
+## Courses
+
+### Build your first web page
+
+<p dir="rtl"><strong>یەکەم پەڕەی وێبی خۆت دروست بکە</strong></p>
+
+Beginner, 5 lessons and 1 project, about 1.5 hours. [Open this course](https://zkri-saber.github.io/coures/#/course/web-basics)
+
+You'll start from a blank file and finish with a real web page that anyone can visit. No experience needed: just a browser and a text editor.
+
+<p dir="rtl">لە فایلێکی بەتاڵەوە دەست پێ دەکەیت و بە پەڕەیەکی وێبی ڕاستەقینە کۆتایی پێ دەهێنیت کە هەموو کەسێک دەتوانێت سەردانی بکات. هیچ ئەزموونێکی پێشووت پێویست نییە: تەنها وێبگەڕێک و دەستکاریکەرێکی دەق.</p>
+
+### Python from zero
+
+<p dir="rtl"><strong>پایتۆن لە سفرەوە</strong></p>
+
+Beginner, 5 lessons and 1 project, about 1.5 hours. [Open this course](https://zkri-saber.github.io/coures/#/course/python-basics)
+
+Python is one of the easiest programming languages to start with and one of the most used in the world. By the end you'll write a small number-guessing game.
+
+<p dir="rtl">پایتۆن یەکێکە لە ئاسانترین زمانەکانی پرۆگرامسازی بۆ دەستپێکردن و یەکێکە لە بەکارهاتووترینەکانیش لە جیهاندا. لە کۆتاییدا یارییەکی بچووکی مەزەندەکردنی ژمارە دەنووسیت.</p>
+
+### GitHub for beginners
+
+<p dir="rtl"><strong>گیتهەب بۆ سەرەتاییەکان</strong></p>
+
+Beginner, 7 lessons and 1 project, about 2 hours. [Open this course](https://zkri-saber.github.io/coures/#/course/github-basics)
+
+GitHub is where most programmers keep and share their code. You'll start in the browser with no installs, learn the branch and pull request workflow real teams use, then connect Git on your own computer.
+
+<p dir="rtl">گیتهەب ئەو شوێنەیە کە زۆربەی پرۆگرامسازان کۆدەکانیانی تێدا هەڵدەگرن و هاوبەشی دەکەن. لە وێبگەڕەوە دەست پێ دەکەیت بەبێ دامەزراندنی هیچ شتێک، ڕێگای branch و pull request فێر دەبیت کە تیمە ڕاستەقینەکان بەکاری دەهێنن، پاشان Git لەسەر کۆمپیوتەرەکەی خۆت دەبەستیتەوە.</p>
+
+### Linux for beginners
+
+<p dir="rtl"><strong>لینوکس بۆ سەرەتاییەکان</strong></p>
+
+Beginner, 8 lessons and 1 project, about 2.5 hours. [Open this course](https://zkri-saber.github.io/coures/#/course/linux-basics)
+
+Linux runs most of the internet, the core of every Android phone and all of the world's fastest supercomputers. You'll learn the command line from scratch, using a free Linux terminal on whatever computer you have.
+
+<p dir="rtl">لینوکس زۆربەی ئینتەرنێت، ناوکی هەموو مۆبایلێکی ئەندرۆید و هەموو خێراترین سوپەرکۆمپیوتەرەکانی جیهان بەڕێوە دەبات. لە سفرەوە هێڵی فەرمان فێر دەبیت، بە بەکارهێنانی تێرمیناڵێکی بەخۆڕایی لینوکس لەسەر هەر کۆمپیوتەرێک کە هەتە.</p>
+
+### How to Write A Resume to Get Hired
+
+<p dir="rtl"><strong>چۆن سیڤییەک بنووسیت کە کارت بۆ مسۆگەر بکات</strong></p>
+
+Beginner, 1 lesson and 1 project, about 2 hours. [Open this course](https://zkri-saber.github.io/coures/#/course/resume-writing)
+
+Discover the art of creating a resume that stands out in the competitive job market and submit your resume to be reviewed by our industry experts. You will receive direct, constructive feedback on your resume guiding you through developing compelling narratives to showcase your skills & experiences, maximizing your chances of being noticed and shortlisted by employers.
+
+<p dir="rtl">هونەری دروستکردنی سیڤییەک فێر بە کە لە بازاڕی کاری پڕ لە کێبڕکێدا دیار بێت، و سیڤییەکەت بنێرە تا لەلایەن شارەزایانی بوارەکەوە هەڵبسەنگێندرێت. تێبینیی ڕاستەوخۆ و بنیاتنەر لەسەر سیڤییەکەت وەردەگریت کە ڕێنماییت دەکات بۆ نووسینی چیرۆکێکی سەرنجڕاکێش دەربارەی کارامەیی و ئەزموونەکانت، تا دەرفەتی ئەوەت زیاتر بێت کە خاوەنکاران بتبینن و ناوت بخەنە لیستی هەڵبژێردراوانەوە.</p>
+
+### Backend Developer with Python
+
+<p dir="rtl"><strong>گەشەپێدەری باکئێند بە پایتۆن</strong></p>
+
+Intermediate, 21 lessons and 3 projects, about 49 hours. [Open this course](https://zkri-saber.github.io/coures/#/course/backend-python)
+
+Build real-world web applications from scratch. This program teaches full stack development using Flask, SQL and Docker, with a focus on APIs, security and deployment skills. You'll design databases, build and test REST APIs, and secure them with authentication and role-based access, finishing three portfolio projects along the way.
+
+<p dir="rtl">لە سفرەوە بەرنامەی وێبی ڕاستەقینە دروست بکە. ئەم بەرنامەیە گەشەپێدانی full stack بە Flask و SQL و Docker فێر دەکات، بە سەرنجدان لە API، ئاسایش و بڵاوکردنەوە. بنکەدراوە دیزاین دەکەیت، REST API دروست دەکەیت و تاقیی دەکەیتەوە، و بە ناسینەوە (authentication) و دەستگەیشتنی پشتبەستوو بە ڕۆڵ دەیانپارێزیت، و لە ڕێگادا سێ پڕۆژەی پۆرتفۆلیۆ تەواو دەکەیت.</p>
+
+---
+
+## About this site
 
 A free course website you can host on GitHub Pages. Students get a course catalog with filters and sorting, lessons with videos, built-in quizzes, a progress tracker and a printable certificate. You manage everything by editing simple text files, right in your browser on github.com.
 
@@ -34,13 +110,15 @@ Go to [github.com](https://github.com) and sign up (free). Your username becomes
 1. In the repository, open **Settings** → **Pages** (left menu).
 2. Under **Build and deployment**, set **Source** to **Deploy from a branch**.
 3. Choose branch **main** and folder **/ (root)**, then click **Save**.
-4. Wait 1–2 minutes and refresh the page. A box appears with your site's address:
+4. Wait 1–2 minutes and refresh the page. A box appears with your site's address. This site's address is:
 
 ```
-https://YOUR-USERNAME.github.io/courses/
+https://zkri-saber.github.io/coures/#/
 ```
 
 Share that link with your students. Done.
+
+> The address uses the repository name exactly as it's spelled (`coures`). If you ever rename the repository, the address changes too.
 
 ---
 

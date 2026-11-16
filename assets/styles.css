@@ -19,6 +19,15 @@
   unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+1E00-1E9F, U+1EF2-1EFF, U+2C60-2C7F, U+A720-A7FF;
 }
 
+/* Arabic-script letters, including Kurdish Sorani (ڕ ڵ ێ ۆ ە) */
+@font-face {
+  font-family: "Noto Sans Arabic";
+  src: url("fonts/noto-sans-arabic.woff2") format("woff2-variations");
+  font-weight: 100 900;
+  font-display: swap;
+  unicode-range: U+0600-06FF, U+0750-077F, U+0870-088E, U+0890-0891, U+0897-08E1, U+08E3-08FF, U+200C-200E, U+2010-2011, U+204F, U+2E41, U+FB50-FDFF, U+FE70-FE74, U+FE76-FEFC;
+}
+
 :root {
   /* Palette */
   --paper: #f7f8fa;        /* page background */
@@ -42,8 +51,8 @@
   --band: linear-gradient(90deg, #0d2bb8 0%, #0a2296 22%, #071a6e 48%, #04103f 75%, #020818 100%);
 
   /* Type */
-  --display: "Inter", "Segoe UI", system-ui, -apple-system, sans-serif;
-  --body: "Inter", "Segoe UI", system-ui, -apple-system, "Noto Sans", "Noto Sans Arabic", sans-serif;
+  --display: "Inter", "Noto Sans Arabic", "Segoe UI", system-ui, -apple-system, sans-serif;
+  --body: "Inter", "Noto Sans Arabic", "Segoe UI", system-ui, -apple-system, "Noto Sans", sans-serif;
   --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
 
   --t-sm: 0.875rem;
@@ -164,7 +173,29 @@ p { margin: 0; text-wrap: pretty; }
 .brand-mark path { stroke: #fff; stroke-width: 3; stroke-linecap: round; }
 .brand-mark circle { fill: #fff; }
 .brand-mark circle.open { fill: #0a2296; stroke: #fff; stroke-width: 2.2; }
+.topbar-end { flex: none; display: flex; align-items: center; gap: 1.25rem; }
 .topnav { flex: none; white-space: nowrap; }
+.lang-switch {
+  display: inline-flex;
+  padding: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(255, 255, 255, 0.25);
+}
+.lang-switch button {
+  font: inherit;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.2;
+  padding: 0.35rem 0.8rem;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(255, 255, 255, 0.85);
+  cursor: pointer;
+}
+.lang-switch button:hover { color: #fff; }
+.lang-switch button[aria-pressed="true"] { background: #fff; color: #0a2296; }
 .topnav a {
   color: rgba(255, 255, 255, 0.85);
   text-decoration: none;
@@ -280,7 +311,8 @@ p { margin: 0; text-wrap: pretty; }
 .filter-options {
   list-style: none;
   margin: 0;
-  padding: 0 1.4rem 1.1rem 3.4rem;
+  padding-block: 0 1.1rem;
+  padding-inline: 3.4rem 1.4rem;
   display: grid;
   gap: 0.15rem;
 }
@@ -295,7 +327,7 @@ p { margin: 0; text-wrap: pretty; }
 .filter-options input { width: 1.05rem; height: 1.05rem; accent-color: var(--action); margin: 0; flex: none; }
 .filter-options .opt-label { flex: 1; }
 .filter-options .opt-count { color: var(--ink-3); font-size: var(--t-sm); }
-.filter-more { margin: -0.4rem 1.4rem 1rem 3.4rem; font-size: var(--t-sm); color: var(--blue); }
+.filter-more { margin-block: -0.4rem 1rem; margin-inline: 3.4rem 1.4rem; font-size: var(--t-sm); color: var(--blue); }
 .filters-clear {
   display: block;
   width: 100%;
@@ -313,7 +345,8 @@ p { margin: 0; text-wrap: pretty; }
   justify-content: space-between;
   flex-wrap: nowrap;
   gap: 1rem 1.5rem;
-  padding: 1rem 1.25rem 1rem 2.25rem;
+  padding-block: 1rem;
+  padding-inline: 2.25rem 1.25rem;
   margin-bottom: 2.25rem;
 }
 .results-bar > div:first-child { flex: 1 1 auto; min-width: 0; }
@@ -1122,6 +1155,36 @@ p { margin: 0; text-wrap: pretty; }
   gap: 0.5rem 2rem;
 }
 
+/* ---------- Kurdish Sorani and other right-to-left languages ---------- */
+
+/* Arabic-script letters join together, so never space them out */
+:lang(ckb) h1, :lang(ckb) h2, :lang(ckb) h3, :lang(ckb) h4,
+:lang(ckb) .card-type, :lang(ckb) .type-label, :lang(ckb) .card-title,
+:lang(ckb) .certificate .cert-name, :lang(ckb) .certificate .cert-course-title {
+  letter-spacing: 0;
+}
+:lang(ckb) body, body:lang(ckb) { line-height: 1.75; }
+:lang(ckb) .prose { line-height: 1.95; }
+:lang(ckb) h1, :lang(ckb) h2, :lang(ckb) h3 { line-height: 1.4; }
+:lang(ckb) .home-hero h1, :lang(ckb) .course-hero h1, :lang(ckb) .lesson-head h1 { line-height: 1.35; }
+
+/* Code always reads left to right, even inside right-to-left text */
+.prose :not(pre) > code, .outline-desc code, .question code, .option code {
+  direction: ltr;
+  unicode-bidi: isolate;
+}
+.prose pre, .prose pre code { direction: ltr; text-align: left; unicode-bidi: isolate; }
+[dir="rtl"] .prose table { direction: rtl; }
+
+.untranslated {
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  background: #fff7e6;
+  border: 1px solid #f5d38a;
+  color: #6b4b00;
+  font-size: 0.95rem;
+}
+
 /* ---------- Smaller screens ---------- */
 
 @media (max-width: 1100px) {
@@ -1140,12 +1203,12 @@ p { margin: 0; text-wrap: pretty; }
   .catalog .empty-state { order: 4; }
   .results-bar { flex-wrap: wrap; padding: 1rem 1.25rem; margin-bottom: 0; }
   .filters-toggle { display: inline-flex; }
-  .course-hero, .course-body { grid-template-columns: 1fr; }
-  .lesson-layout { grid-template-columns: 1fr; gap: 1.5rem; padding-top: 1.25rem; }
+  .course-hero, .course-body { grid-template-columns: minmax(0, 1fr); }
+  .lesson-layout { grid-template-columns: minmax(0, 1fr); gap: 1.5rem; padding-top: 1.25rem; }
   .lesson-nav { position: static; max-height: none; overflow: visible; padding: 0.9rem 1rem; }
   .lesson-nav summary { padding-bottom: 0; }
   .lesson-nav summary::after {
-    content: "Show lessons";
+    content: attr(data-show);
     display: block;
     font-weight: 400;
     font-size: var(--t-sm);
@@ -1153,11 +1216,13 @@ p { margin: 0; text-wrap: pretty; }
     text-decoration: underline;
     margin-top: 0.2rem;
   }
-  .lesson-nav[open] summary::after { content: "Hide lessons"; }
+  .lesson-nav[open] summary::after { content: attr(data-hide); }
   .lesson-nav[open] summary { margin-bottom: 0.5rem; }
 }
 
 @media (max-width: 560px) {
+  .topbar-end { gap: 0.75rem; }
+  .topnav { display: none; }
   .results-bar h1 { font-size: 1.4rem; }
   .sort { width: 100%; }
   .sort select { flex: 1; min-width: 0; }

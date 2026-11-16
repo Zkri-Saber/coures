@@ -81,6 +81,11 @@
     done: "Done",
     lessonOf: "Lesson {i} of {n}",
     courseOutline: "Course Outline",
+    skipToContent: "Skip to content",
+    language: "Language",
+    notTranslated: "This lesson hasn't been translated yet, so it's shown in its original language.",
+    showLessons: "Show lessons",
+    hideLessons: "Hide lessons",
     prerequisites: "Prerequisites",
     prerequisitesIntro: "Before you start, you should be comfortable with:",
     skillsTitle: "Skills you'll learn",
@@ -117,6 +122,7 @@
     certTop: "Certificate of completion",
     certCompleted: "has completed the course",
     certDate: "Date",
+    listSep: ", ",
     certTeacher: "Teacher",
     certLocked: "Finish all {n} lessons to unlock your certificate. You have {left} left.",
     notFound: "That page doesn't exist",
@@ -130,6 +136,10 @@
 
   var DATA = null;
   var SITE = {};
+  var LANG_KEY = "course-site-lang";
+  var BASE_LANG = "en";          // language of courses.json and the plain .md lesson files
+  var LANG = null;               // the language being shown: { code, name, dir }
+  var LANGS = [];
   var main = document.getElementById("main");
   var mdCache = {};
   var renderToken = 0;
@@ -457,7 +467,7 @@
         var done = isDone(course.id, l.id);
         var isNext = !done && s.next && s.next.lesson.id === l.id;
         var meta = done ? '<span class="outline-meta is-done">' + svgIcon(ICONS.check) + t("done") + "</span>" :
-          isNext ? '<span class="outline-meta is-next">' + t("upNext") + (l.minutes ? ", " + lessonTime(l.minutes) : "") + "</span>" :
+          isNext ? '<span class="outline-meta is-next">' + t("upNext") + (l.minutes ? t("listSep") + lessonTime(l.minutes) : "") + "</span>" :
           (l.minutes ? '<span class="outline-meta">' + lessonTime(l.minutes) + "</span>" : "");
         html += '<li class="outline-row' + (done ? " done" : "") + '">' + pill(l) +
           '<div class="outline-name"><a href="' + href("course", course.id, l.id) + '">' + esc(l.title) + "</a>" + meta + "</div>" +
@@ -858,8 +868,10 @@
       "</div>";
   }
 
-  function lessonFile(course, lesson) {
-    return CONTENT_DIR + (lesson.file || (course.id + "/" + lesson.id + ".md"));
+  function lessonFile(course, lesson, lang) {
+    var file = lesson.file || (course.id + "/" + lesson.id + ".md");
+    if (lang && lang !== BASE_LANG) file = file.replace(/\.md$/, "." + lang + ".md");
+    return CONTENT_DIR + file;
   }
 
   function renderLesson(course, lessonId) {
@@ -879,7 +891,7 @@
       '<div class="wrap"' + lineStyle(course) + ">" +
         '<div class="lesson-layout">' +
           '<details class="lesson-nav"' + (wide ? " open" : "") + ">" +
-            '<summary><span class="nav-course">' + esc(course.title) + "</span>" +
+            '<summary data-show="' + esc(t("showLessons")) + '" data-hide="' + esc(t("hideLessons")) + '"><span class="nav-course">' + esc(course.title) + "</span>" +
               '<span class="nav-count">' + s.done + " " + doneText(s) + "</span></summary>" +
             routeH(course, s) +
             routeV(course, s, lesson.id) +
@@ -909,9 +921,21 @@
     var token = ++renderToken;
     var quizzes = [];
 
-    loadMarkdown(lessonFile(course, lesson)).then(function (md) {
+    // Translated lesson first (e.g. lesson.ckb.md); fall back to the original if it doesn't exist yet
+    var translating = LANG && LANG.code !== BASE_LANG;
+    var usedFallback = false;
+    loadMarkdown(lessonFile(course, lesson, translating ? LANG.code : null)).catch(function (err) {
+      if (!translating) throw err;
+      usedFallback = true;
+      return loadMarkdown(lessonFile(course, lesson));
+    }).then(function (md) {
       if (token !== renderToken) return;
       var body = document.getElementById("lesson-body");
+      if (usedFallback) {
+        body.setAttribute("lang", BASE_LANG);
+        body.setAttribute("dir", "ltr");
+        md = '<p class="untranslated" lang="' + esc(LANG.code) + '" dir="' + esc(LANG.dir || "ltr") + '">' + esc(t("notTranslated")) + "</p>\n\n" + md;
+      }
       var parsed = extractQuizzes(md);
       quizzes = parsed.quizzes;
       body.innerHTML = window.marked ? marked.parse(parsed.markdown) : "<pre>" + esc(parsed.markdown) + "</pre>";
@@ -1176,8 +1200,15 @@
 
     var date = s.lastDoneAt ? new Date(s.lastDoneAt) : new Date();
     var dateText;
-    try { dateText = date.toLocaleDateString(SITE.lang || undefined, { year: "numeric", month: "long", day: "numeric" }); }
-    catch (e) { dateText = date.toDateString(); }
+    /* A translation can name the months itself ("months": "Jan|Feb|...", "dateFormat": "{d} {month} {y}"),
+       because some browsers have no date data for every language. */
+    var months = TEXT.months ? String(TEXT.months).split("|") : [];
+    if (months.length === 12) {
+      dateText = t("dateFormat", { d: date.getDate(), month: months[date.getMonth()], y: date.getFullYear() });
+    } else {
+      try { dateText = date.toLocaleDateString(SITE.lang || undefined, { year: "numeric", month: "long", day: "numeric" }); }
+      catch (e) { dateText = date.toDateString(); }
+    }
     var teacher = course.teacher || SITE.teacher || "";
     var name = getName();
 
@@ -1197,7 +1228,7 @@
         '<div class="cert-foot">' +
           "<div>" + t("certDate") + "<strong>" + esc(dateText) + "</strong></div>" +
           (teacher ? "<div>" + t("certTeacher") + "<strong>" + esc(teacher) + "</strong></div>" : "") +
-          "<div>" + esc(SITE.title || "") + "<strong>" + lessonCountText(s.lessons) + (s.projects ? ", " + projectCountText(s.projects) : "") + (s.minutes ? ", " + formatTime(s.minutes).toLowerCase() : "") + "</strong></div>" +
+          "<div>" + esc(SITE.title || "") + "<strong>" + lessonCountText(s.lessons) + (s.projects ? t("listSep") + projectCountText(s.projects) : "") + (s.minutes ? t("listSep") + formatTime(s.minutes).toLowerCase() : "") + "</strong></div>" +
         "</div>" +
         '<div class="cert-route">' + routeH(course, s) + "</div>" +
       "</div></div>";
@@ -1288,8 +1319,25 @@
   /* ---------------- start ---------------- */
 
   function setupChrome() {
-    if (SITE.lang) document.documentElement.lang = SITE.lang;
-    if (SITE.dir) document.documentElement.dir = SITE.dir;
+    document.documentElement.lang = LANG ? LANG.code : (SITE.lang || "en");
+    document.documentElement.dir = LANG ? (LANG.dir || "ltr") : (SITE.dir || "ltr");
+    var skip = document.querySelector(".skip-link");
+    if (skip) skip.textContent = t("skipToContent");
+    var sw = document.getElementById("lang-switch");
+    if (sw && LANGS.length > 1) {
+      sw.setAttribute("aria-label", t("language"));
+      sw.innerHTML = LANGS.map(function (l) {
+        var on = LANG && l.code === LANG.code;
+        return '<button type="button" lang="' + esc(l.code) + '" dir="' + esc(l.dir || "ltr") + '" data-lang="' + esc(l.code) + '" aria-pressed="' + on + '">' + esc(l.name || l.code) + "</button>";
+      }).join("");
+      sw.hidden = false;
+      sw.addEventListener("click", function (e) {
+        var b = e.target.closest("[data-lang]");
+        if (!b || (LANG && b.getAttribute("data-lang") === LANG.code)) return;
+        try { localStorage.setItem(LANG_KEY, b.getAttribute("data-lang")); } catch (err) { /* ignore */ }
+        location.reload();
+      });
+    }
     if (SITE.title) document.getElementById("brand-name").textContent = SITE.title;
     var nav = document.querySelector('[data-nav="home"]');
     if (nav) nav.textContent = t("allCourses");
@@ -1314,6 +1362,39 @@
     });
   }
 
+  function pickLanguage(code) {
+    if (!code) return null;
+    for (var i = 0; i < LANGS.length; i++) if (LANGS[i].code === code) return LANGS[i];
+    return null;
+  }
+
+  /* Merge content/translations/<lang>.json over the original course data */
+  function applyTranslation(tr) {
+    if (tr.text) Object.keys(tr.text).forEach(function (k) { TEXT[k] = tr.text[k]; });
+    if (tr.site) Object.keys(tr.site).forEach(function (k) { if (k !== "lang" && k !== "languages") SITE[k] = tr.site[k]; });
+    var all = tr.courses || {};
+    var fields = ["title", "summary", "description", "subject", "type", "level", "tags", "skills", "outcomes", "prerequisites", "teacher"];
+    DATA.courses.forEach(function (c) {
+      var o = all[c.id];
+      if (!o) return;
+      fields.forEach(function (k) { if (o[k] != null) c[k] = o[k]; });
+      if (o.project && c.project) Object.keys(o.project).forEach(function (k) { c.project[k] = o.project[k]; });
+      (o.modules || []).forEach(function (om, i) {
+        var m = c.modules[i];
+        if (!m || !om) return;
+        if (om.title) m.title = om.title;
+        if (om.summary) m.summary = om.summary;
+      });
+      if (o.lessons) c.modules.forEach(function (m) {
+        (m.lessons || []).forEach(function (l) {
+          var ol = o.lessons[l.id];
+          if (!ol) return;
+          ["title", "summary", "video", "submitUrl"].forEach(function (k) { if (ol[k]) l[k] = ol[k]; });
+        });
+      });
+    });
+  }
+
   function start() {
     fetch(CONTENT_DIR + "courses.json", { cache: "no-cache" })
       .then(function (r) {
@@ -1328,7 +1409,23 @@
         if (errs.length) throw { kind: "invalid", errors: errs };
         DATA = data;
         SITE = data.site || {};
-        if (SITE.text) Object.keys(SITE.text).forEach(function (k) { TEXT[k] = SITE.text[k]; });
+        BASE_LANG = SITE.lang || "en";
+        LANGS = (SITE.languages && SITE.languages.length) ? SITE.languages : [{ code: BASE_LANG, name: BASE_LANG, dir: SITE.dir || "ltr" }];
+        var saved = null;
+        try { saved = localStorage.getItem(LANG_KEY); } catch (e) { /* ignore */ }
+        LANG = pickLanguage(saved) || pickLanguage(SITE.defaultLanguage) || pickLanguage(BASE_LANG) || LANGS[0];
+        if (LANG.code === BASE_LANG) return null;
+        return fetch(CONTENT_DIR + "translations/" + LANG.code + ".json", { cache: "no-cache" })
+          .then(function (r) { return r.ok ? r.json() : null; })
+          .catch(function () { return null; });
+      })
+      .then(function (translation) {
+        if (translation) applyTranslation(translation);
+        else {
+          if (LANG.code !== BASE_LANG) LANG = pickLanguage(BASE_LANG) || { code: BASE_LANG, dir: SITE.dir || "ltr" };
+          if (SITE.text) Object.keys(SITE.text).forEach(function (k) { TEXT[k] = SITE.text[k]; });
+        }
+        SITE.lang = LANG.code;
         setupChrome();
         window.addEventListener("hashchange", route);
         route();

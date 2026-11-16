@@ -50,10 +50,12 @@ All your content lives in the `content` folder:
 
 ```
 content/
-  courses.json              ← site name, list of courses, modules and lessons
+  courses.json              ← site name, list of courses, modules and lessons (English)
+  translations/
+    ckb.json                ← Kurdish Sorani: labels, site name and every course's text
   web-basics/               ← one folder per course (folder name = course id)
     how-the-web-works.md    ← one file per lesson (file name = lesson id)
-    first-html-page.md
+    how-the-web-works.ckb.md  ← the same lesson in Kurdish Sorani
     ...
   python-basics/
     ...
@@ -72,6 +74,11 @@ At the top of `content/courses.json`:
   "teacher": "Zkri Saber",
   "lang": "en",
   "dir": "ltr",
+  "languages": [
+    { "code": "ckb", "name": "کوردی", "dir": "rtl" },
+    { "code": "en", "name": "English", "dir": "ltr" }
+  ],
+  "defaultLanguage": "ckb",
   "requireQuiz": false
 }
 ```
@@ -81,11 +88,13 @@ At the top of `content/courses.json`:
 | `title` | Big heading on the home page, and the browser tab name |
 | `tagline` | The sentence under the title |
 | `teacher` | Shown on course pages and certificates |
-| `lang` | Language code, e.g. `en`, `ar`, `fr`. Also sets the certificate date format |
+| `lang` | Language that `courses.json` itself is written in (`en`) |
 | `dir` | `ltr` (left-to-right) or `rtl` for Arabic, Kurdish, Persian or Hebrew |
+| `languages` | The languages students can switch between (see *Languages* below) |
+| `defaultLanguage` | The language the site opens in the first time (`ckb` = Kurdish Sorani) |
 | `requireQuiz` | `true` = students must answer every quiz question correctly before finishing a lesson |
 | `footer` | Optional custom footer text |
-| `text` | Optional: translate any button or label (see *Translate the site* below) |
+| `text` | Optional: change the wording of any English button or label |
 
 ### The course catalog
 
@@ -212,25 +221,30 @@ Q: Next question...
 - `Why:` is optional and appears after the student gets it right.
 - Students can retry until they get it right. Their answers are saved.
 
-### Translate the site
+### Languages: Kurdish Sorani and English
 
-Every button and label can be replaced from `courses.json`. For example, for Arabic:
+The site opens in **Kurdish Sorani**, right to left. The **English / کوردی** switch at the top of every page changes the language, and the site remembers each student's choice.
 
-```json
-"site": {
-  "title": "علوم الحاسوب",
-  "lang": "ar",
-  "dir": "rtl",
-  "text": {
-    "allCourses": "كل الدورات",
-    "startCourse": "ابدأ الدورة",
-    "continueCourse": "تابع",
-    "finishContinue": "أنهِ الدرس وتابع"
-  }
-}
-```
+Each language has two parts:
 
-The full list of labels is at the top of `assets/app.js` (the `TEXT` block). Any label you don't translate stays in English.
+1. **Labels and course information** (buttons, course titles, descriptions, module and lesson names) live in `content/translations/ckb.json`. It mirrors `courses.json`: the same course `id`s and lesson `id`s, with the text in Kurdish. Anything left out falls back to English.
+2. **Lesson text** lives next to each English lesson, with `.ckb` before `.md`: `variables.md` is English, `variables.ckb.md` is Kurdish Sorani.
+
+**When you edit a lesson,** change both files, or the two languages will drift apart. If a `.ckb.md` file is missing, Kurdish readers see the English lesson with a short note saying it hasn't been translated yet, so a new lesson never breaks the site.
+
+**Code stays in English** in both versions, because that's how programmers write it. Keep the quiz markers (`:::quiz`, `Q:`, `- [x]`, `- [ ]`, `Why:`) exactly as they are, and translate only the words after them.
+
+**The teacher's name** is kept in Latin letters (`Zkri Saber`) in both languages. To show it in Kurdish letters, change `"teacher"` inside `"site"` in `ckb.json`.
+
+**To add another language** (for example Arabic, `ar`):
+
+1. Add it to `languages` in `courses.json`: `{ "code": "ar", "name": "العربية", "dir": "rtl" }`.
+2. Copy `content/translations/ckb.json` to `content/translations/ar.json` and translate the text (keep every key and `id` as it is).
+3. Add `.ar.md` copies of the lessons you've translated.
+
+**To use one language only,** remove the other from `languages` (the switch disappears when only one is left). To open in English by default, set `"defaultLanguage": "en"`.
+
+The Kurdish translation was written carefully, but a native speaker should read it through before you rely on it, especially the technical terms.
 
 ---
 
@@ -271,8 +285,8 @@ That needs a backend (a server and database). Free-tier services like Supabase o
 index.html          the single page that runs the site
 assets/app.js       the app (routing, progress, quizzes, certificates)
 assets/styles.css   all styling: colors and fonts are at the top
-assets/fonts/       Inter (SIL Open Font License)
+assets/fonts/       Inter and Noto Sans Arabic for Kurdish letters (SIL Open Font License)
 assets/vendor/      marked, the Markdown converter (MIT License)
-content/            your courses
+content/            your courses; content/translations/ holds the Kurdish Sorani text
 .nojekyll           tells GitHub Pages to publish the files as they are
 ```

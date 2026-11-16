@@ -5,6 +5,11 @@
     "teacher": "Zkri Saber",
     "lang": "en",
     "dir": "ltr",
+    "languages": [
+      { "code": "ckb", "name": "کوردی", "dir": "rtl" },
+      { "code": "en", "name": "English", "dir": "ltr" }
+    ],
+    "defaultLanguage": "ckb",
     "requireQuiz": false
   },
   "courses": [

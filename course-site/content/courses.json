@@ -1,0 +1,636 @@
+{
+  "site": {
+    "title": "Grade 10 Computer Science",
+    "tagline": "Lessons, videos and quizzes for our class. Work at your own pace; the site remembers where you stopped.",
+    "teacher": "Zkri Saber",
+    "lang": "en",
+    "dir": "ltr",
+    "requireQuiz": false
+  },
+  "courses": [
+    {
+      "id": "web-basics",
+      "title": "Build your first web page",
+      "summary": "Learn how websites work, write HTML and CSS by hand, and put your own page on the internet.",
+      "description": "You'll start from a blank file and finish with a real web page that anyone can visit. No experience needed: just a browser and a text editor.",
+      "subject": "Web Development",
+      "type": "Course",
+      "level": "Beginner",
+      "color": "#2563EB",
+      "cover": "web",
+      "tags": ["HTML", "CSS", "Web design", "Publishing"],
+      "outcomes": [
+        "Explain what happens when you open a website",
+        "Write a page with headings, paragraphs, links and images",
+        "Style a page with colors, fonts and simple layouts",
+        "Publish your page for free with GitHub Pages"
+      ],
+      "project": {
+        "title": "Final project: an About Me page",
+        "description": "Build a one-page site about yourself or a hobby, publish it, and send your teacher the link.",
+        "url": "",
+        "button": "Submit your link"
+      },
+      "modules": [
+        {
+          "title": "How the web works",
+          "summary": "What a browser does and the three languages of the web",
+          "lessons": [
+            {
+              "id": "how-the-web-works",
+              "title": "What happens when you open a website",
+              "minutes": 10,
+              "video": "",
+              "summary": "Follow a web page from the address bar to your screen, and meet HTML, CSS and JavaScript."
+            },
+            {
+              "id": "first-html-page",
+              "title": "Your first HTML page",
+              "minutes": 20,
+              "video": "",
+              "summary": "Write a complete page with headings, paragraphs, lists, links and images."
+            }
+          ]
+        },
+        {
+          "title": "Make it look good",
+          "summary": "Colors, fonts and layout with CSS",
+          "lessons": [
+            {
+              "id": "styling-with-css",
+              "title": "Styling with CSS",
+              "minutes": 20,
+              "video": "",
+              "summary": "Connect a stylesheet and change colors, fonts and spacing, including with classes."
+            },
+            {
+              "id": "boxes-and-layout",
+              "title": "Boxes and layout",
+              "minutes": 25,
+              "video": "",
+              "summary": "Understand the box model and line up elements side by side with flexbox."
+            }
+          ]
+        },
+        {
+          "title": "Put it online",
+          "lessons": [
+            {
+              "id": "publish-your-page",
+              "title": "Publish your page on GitHub Pages",
+              "minutes": 15,
+              "video": "",
+              "summary": "Put your page online for free with GitHub Pages and share the link."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "python-basics",
+      "title": "Python from zero",
+      "summary": "Write your first programs: store information, ask the user questions, make decisions and repeat work with loops.",
+      "description": "Python is one of the easiest programming languages to start with and one of the most used in the world. By the end you'll write a small number-guessing game.",
+      "subject": "Programming",
+      "type": "Course",
+      "level": "Beginner",
+      "color": "#4F46E5",
+      "cover": "code",
+      "tags": ["Python", "Programming", "Problem solving"],
+      "outcomes": [
+        "Run Python code in your browser or on your computer",
+        "Store and change information with variables",
+        "Make choices with if, elif and else",
+        "Repeat steps with for and while loops"
+      ],
+      "project": {
+        "title": "Final project: a guessing game",
+        "description": "Write a game where the computer picks a number and the player keeps guessing until they get it. Share your code with your teacher.",
+        "url": ""
+      },
+      "modules": [
+        {
+          "title": "First steps",
+          "summary": "Programs, variables, input and output",
+          "lessons": [
+            {
+              "id": "what-is-a-program",
+              "title": "What is a program?",
+              "minutes": 10,
+              "video": "",
+              "summary": "Run your first line of Python, see how programs run top to bottom, and read error messages."
+            },
+            {
+              "id": "variables",
+              "title": "Variables and types",
+              "minutes": 20,
+              "video": "",
+              "summary": "Store values in variables and learn the difference between text, whole numbers, decimals and True/False."
+            },
+            {
+              "id": "input-and-output",
+              "title": "Talking to the user",
+              "minutes": 15,
+              "video": "",
+              "summary": "Ask the user questions with input(), convert their answers to numbers, and print with f-strings."
+            }
+          ]
+        },
+        {
+          "title": "Decisions and repetition",
+          "summary": "Make your programs react and repeat",
+          "lessons": [
+            {
+              "id": "if-statements",
+              "title": "Making decisions with if",
+              "minutes": 20,
+              "video": "",
+              "summary": "Make your program choose what to do with if, elif and else, and combine conditions."
+            },
+            {
+              "id": "loops",
+              "title": "Repeating with loops",
+              "minutes": 25,
+              "video": "",
+              "summary": "Repeat work with for and while loops, then start building a number-guessing game."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "github-basics",
+      "title": "GitHub for beginners",
+      "summary": "Save every version of your work, collaborate without overwriting each other, and build a public portfolio of your projects.",
+      "description": "GitHub is where most programmers keep and share their code. You'll start in the browser with no installs, learn the branch and pull request workflow real teams use, then connect Git on your own computer.",
+      "subject": "Developer Tools",
+      "type": "Course",
+      "level": "Beginner",
+      "color": "#0891B2",
+      "cover": "branches",
+      "tags": ["Git", "GitHub", "Version control", "Collaboration"],
+      "outcomes": [
+        "Explain the difference between Git and GitHub",
+        "Create repositories and save changes as commits",
+        "Propose and merge changes with branches and pull requests",
+        "Plan work and collaborate using issues",
+        "Use Git on your own computer to clone, commit and push",
+        "Build a GitHub profile that shows off your projects"
+      ],
+      "project": {
+        "title": "Final project: your GitHub portfolio",
+        "description": "Create a profile README, then improve it through a branch and a merged pull request. Send your teacher the link to your profile.",
+        "url": "",
+        "button": "Submit your profile link"
+      },
+      "modules": [
+        {
+          "title": "Get started",
+          "summary": "What Git and GitHub are, and your first repository",
+          "lessons": [
+            {
+              "id": "what-are-git-and-github",
+              "title": "What are Git and GitHub?",
+              "minutes": 10,
+              "video": "",
+              "summary": "Learn how Git tracks every version of your work and how GitHub adds teamwork on top."
+            },
+            {
+              "id": "your-first-repository",
+              "title": "Your account and first repository",
+              "minutes": 15,
+              "video": "",
+              "summary": "Create your account and a repository with a README, and find your way around it."
+            }
+          ]
+        },
+        {
+          "title": "Work in the browser",
+          "summary": "Commits, branches, pull requests and issues",
+          "lessons": [
+            {
+              "id": "commits",
+              "title": "Saving changes with commits",
+              "minutes": 15,
+              "video": "",
+              "summary": "Edit files in the browser, save them as commits, read the history and write good commit messages."
+            },
+            {
+              "id": "branches-and-pull-requests",
+              "title": "Branches and pull requests",
+              "minutes": 25,
+              "video": "",
+              "summary": "Work safely on a branch, propose changes with a pull request, then review and merge."
+            },
+            {
+              "id": "issues-and-teamwork",
+              "title": "Issues and working together",
+              "minutes": 15,
+              "video": "",
+              "summary": "Track tasks with issues, close them from pull requests, invite teammates and fork projects."
+            }
+          ]
+        },
+        {
+          "title": "Work on your computer",
+          "summary": "Git on your own machine, and showing off your work",
+          "lessons": [
+            {
+              "id": "git-on-your-computer",
+              "title": "Git on your computer",
+              "minutes": 25,
+              "video": "",
+              "summary": "Install Git, then clone, commit, push and pull from your own computer."
+            },
+            {
+              "id": "your-github-profile",
+              "title": "Show your work with a profile",
+              "minutes": 15,
+              "video": "",
+              "summary": "Build a profile README and pin your best projects so others can see your work."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "linux-basics",
+      "title": "Linux for beginners",
+      "summary": "Use the command line with confidence: move around the file system, manage files, install software and write your first script.",
+      "description": "Linux runs most of the internet, the core of every Android phone and all of the world's fastest supercomputers. You'll learn the command line from scratch, using a free Linux terminal on whatever computer you have.",
+      "subject": "Developer Tools",
+      "type": "Course",
+      "level": "Beginner",
+      "color": "#0D9488",
+      "cover": "terminal",
+      "tags": ["Linux", "Command line", "Bash", "Ubuntu"],
+      "outcomes": [
+        "Explain what Linux is and where it's used",
+        "Open a Linux terminal on Windows, Chromebook, Mac or in the browser",
+        "Move around the file system and manage files and folders",
+        "Read file permissions and use sudo safely",
+        "Install software with a package manager",
+        "Combine commands with pipes and write a simple script"
+      ],
+      "project": {
+        "title": "Final project: your first shell script",
+        "description": "Write a script called `about-me.sh` that greets the user by name, shows today's date and lists the files in the home folder. Make it executable, run it, and send your teacher a screenshot.",
+        "url": "",
+        "button": "Submit your screenshot"
+      },
+      "modules": [
+        {
+          "title": "Meet Linux",
+          "summary": "What Linux is and how to get a terminal",
+          "lessons": [
+            {
+              "id": "what-is-linux",
+              "title": "What is Linux?",
+              "minutes": 10,
+              "video": "",
+              "summary": "Find out what Linux is, what distributions are, and why the command line is worth learning."
+            },
+            {
+              "id": "get-a-terminal",
+              "title": "Get a Linux terminal",
+              "minutes": 15,
+              "video": "",
+              "summary": "Open a Linux terminal on Windows, Chromebook, Mac or in your browser."
+            }
+          ]
+        },
+        {
+          "title": "The command line",
+          "summary": "Commands, folders and files",
+          "lessons": [
+            {
+              "id": "first-commands",
+              "title": "Your first commands",
+              "minutes": 15,
+              "video": "",
+              "summary": "Read the prompt, run your first commands and use shortcuts like Tab and Ctrl + C."
+            },
+            {
+              "id": "finding-your-way",
+              "title": "Finding your way around",
+              "minutes": 20,
+              "video": "",
+              "summary": "Move around the folder tree with pwd, ls and cd, using absolute and relative paths."
+            },
+            {
+              "id": "working-with-files",
+              "title": "Creating and managing files",
+              "minutes": 25,
+              "video": "",
+              "summary": "Create, read, edit, copy, move and delete files and folders, and use wildcards."
+            }
+          ]
+        },
+        {
+          "title": "Power tools",
+          "summary": "Permissions, software and scripts",
+          "lessons": [
+            {
+              "id": "permissions-and-sudo",
+              "title": "Permissions and sudo",
+              "minutes": 20,
+              "video": "",
+              "summary": "Read file permissions, change them with chmod, and use sudo safely."
+            },
+            {
+              "id": "installing-software",
+              "title": "Installing software",
+              "minutes": 15,
+              "video": "",
+              "summary": "Install, update and remove software with the apt package manager."
+            },
+            {
+              "id": "pipes-and-scripts",
+              "title": "Pipes, search and your first script",
+              "minutes": 25,
+              "video": "",
+              "summary": "Combine commands with pipes, search with grep and find, and write your first script."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resume-writing",
+      "title": "How to Write A Resume to Get Hired",
+      "summary": "Discover the art of creating a resume that stands out in the competitive job market and submit your resume to be reviewed by our industry experts.",
+      "description": "Discover the art of creating a resume that stands out in the competitive job market and submit your resume to be reviewed by our industry experts. You will receive direct, constructive feedback on your resume guiding you through developing compelling narratives to showcase your skills & experiences, maximizing your chances of being noticed and shortlisted by employers.",
+      "subject": "Career Skills",
+      "type": "Course",
+      "level": "Beginner",
+      "color": "#EA580C",
+      "cover": "document",
+      "tags": ["Resume writing", "Job search", "ATS", "Personal branding"],
+      "outcomes": [
+        "Structure a clear resume with the sections employers expect",
+        "Turn everyday duties into achievements with measurable results",
+        "Tailor your resume to a specific job posting and its keywords",
+        "Format your resume so applicant tracking systems can read it",
+        "Use AI tools to improve your resume without losing accuracy or your own voice",
+        "Show transferable skills from school, volunteering and other experience"
+      ],
+      "modules": [
+        {
+          "title": "How to Write A Resume to Get Hired",
+          "lessons": [
+            {
+              "id": "refresh-your-resume",
+              "title": "Refresh Your Resume",
+              "minutes": 45,
+              "video": "",
+              "summary": "Build, tailor and polish a professional resume using proven practices, AI tools and formatting that applicant tracking systems can read."
+            },
+            {
+              "id": "project-refresh-your-resume",
+              "title": "Project: Refresh Your Resume",
+              "type": "project",
+              "minutes": 60,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Apply what you learned by tailoring your resume to a real job posting, highlighting your achievements and transferable skills, and submitting it for feedback."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-python",
+      "title": "Backend Developer with Python",
+      "summary": "Build real-world web applications from scratch. This program teaches full stack development using Flask, SQL and Docker, with a focus on APIs, security and deployment skills.",
+      "description": "Build real-world web applications from scratch. This program teaches full stack development using Flask, SQL and Docker, with a focus on APIs, security and deployment skills. You'll design databases, build and test REST APIs, and secure them with authentication and role-based access, finishing three portfolio projects along the way.",
+      "subject": "Web Development",
+      "type": "Program",
+      "level": "Intermediate",
+      "color": "#9333EA",
+      "cover": "server",
+      "tags": ["Flask", "SQLAlchemy", "SQL", "PostgreSQL", "Data modeling", "Database migrations", "HTTP", "REST APIs", "API testing", "API documentation", "CORS", "Authentication", "Authorization", "Password security", "Application security", "Docker"],
+      "prerequisites": [
+        "Command line basics (see [Linux for beginners](#/course/linux-basics))",
+        "Basic programming in Python (see [Python from zero](#/course/python-basics))",
+        "Relational database basics: tables, rows, primary and foreign keys",
+        "Basic SQL: SELECT, INSERT, UPDATE, DELETE and JOIN",
+        "Git and GitHub (see [GitHub for beginners](#/course/github-basics))",
+        "Helpful but not required: basic HTML and how the web works"
+      ],
+      "outcomes": [
+        "Design relational data models and query them with SQL and SQLAlchemy",
+        "Evolve a database schema safely with migrations",
+        "Build a database-backed web app with full create, read, update and delete",
+        "Design, build, test and document REST APIs with Flask",
+        "Add authentication and role-based access control to an API",
+        "Spot and prevent the most common web security weaknesses"
+      ],
+      "modules": [
+        {
+          "title": "Welcome to the Program",
+          "summary": "What to expect and how to succeed",
+          "lessons": [
+            {
+              "id": "welcome",
+              "title": "Welcome to the Backend Developer with Python Program",
+              "minutes": 20,
+              "video": "",
+              "summary": "See what you'll build, how the program is organised and how to plan your study time."
+            },
+            {
+              "id": "getting-help",
+              "title": "Getting Help",
+              "minutes": 30,
+              "video": "",
+              "summary": "Learn to debug on your own, ask clear questions, and know where to go when you're stuck."
+            }
+          ]
+        },
+        {
+          "title": "SQL and Data Modeling for the Web with Python",
+          "summary": "Databases, SQLAlchemy and a complete database-backed web app",
+          "lessons": [
+            {
+              "id": "course-introduction",
+              "title": "Course Introduction",
+              "minutes": 15,
+              "video": "",
+              "summary": "Find out what this course covers, the app you'll build, and the skills you'll leave with."
+            },
+            {
+              "id": "setup-environment",
+              "title": "Set Up Your Development Environment",
+              "minutes": 45,
+              "video": "",
+              "summary": "Install Python, create a virtual environment, and run PostgreSQL locally with Docker or an installer."
+            },
+            {
+              "id": "interacting-with-databases",
+              "title": "Interacting with Databases",
+              "minutes": 90,
+              "video": "",
+              "summary": "Review SQL and the client-server model, then talk to PostgreSQL from Python with a database driver."
+            },
+            {
+              "id": "sqlalchemy-basics",
+              "title": "SQLAlchemy Basics",
+              "minutes": 90,
+              "video": "",
+              "summary": "Connect Flask to a database with Flask-SQLAlchemy, define models and create tables."
+            },
+            {
+              "id": "sqlalchemy-orm-in-depth",
+              "title": "SQLAlchemy ORM in Depth",
+              "minutes": 120,
+              "video": "",
+              "summary": "Query, filter, sort and change records, and understand the session and the object lifecycle."
+            },
+            {
+              "id": "migrations",
+              "title": "Migrations",
+              "minutes": 90,
+              "video": "",
+              "summary": "Change your database schema safely over time with Flask-Migrate and version-controlled migration files."
+            },
+            {
+              "id": "crud-app-part-1",
+              "title": "Build a CRUD App with SQLAlchemy, Part 1",
+              "minutes": 110,
+              "video": "",
+              "summary": "Start a to-do app: create and read items, connect the views to the database, and handle errors."
+            },
+            {
+              "id": "crud-app-part-2",
+              "title": "Build a CRUD App with SQLAlchemy, Part 2",
+              "minutes": 110,
+              "video": "",
+              "summary": "Finish the app with update and delete, and model one-to-many relationships between lists and to-dos."
+            },
+            {
+              "id": "project-booking-site",
+              "title": "Project: Artist Booking Site",
+              "type": "project",
+              "minutes": 600,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Show your data modeling and SQLAlchemy skills by building a site that helps artists and venues book shows."
+            }
+          ]
+        },
+        {
+          "title": "API Development and Documentation",
+          "summary": "Design, build, test and document REST APIs with Flask",
+          "lessons": [
+            {
+              "id": "introduction-to-apis",
+              "title": "Introduction to APIs",
+              "minutes": 45,
+              "video": "",
+              "summary": "Learn what APIs are, why they matter, how internet protocols fit in, and the principles of REST."
+            },
+            {
+              "id": "http-and-flask-basics",
+              "title": "HTTP and Flask Basics",
+              "minutes": 75,
+              "video": "",
+              "summary": "Understand HTTP methods, requests, responses and status codes, then build and test Flask endpoints with curl."
+            },
+            {
+              "id": "endpoints-and-payloads",
+              "title": "Endpoints and Payloads",
+              "minutes": 90,
+              "video": "",
+              "summary": "Handle different methods, route parameters, pagination and JSON payloads, and return consistent errors."
+            },
+            {
+              "id": "api-testing",
+              "title": "API Testing",
+              "minutes": 75,
+              "video": "",
+              "summary": "Test your API with unittest and Flask's test client, and try test-driven development."
+            },
+            {
+              "id": "api-documentation",
+              "title": "API Documentation",
+              "minutes": 45,
+              "video": "",
+              "summary": "Write clear API and project documentation so other developers can run and use your work."
+            },
+            {
+              "id": "project-trivia-api",
+              "title": "Project: Trivia API",
+              "type": "project",
+              "minutes": 210,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Build and document a tested REST API that powers a trivia game."
+            }
+          ]
+        },
+        {
+          "title": "Identity and Access Management",
+          "summary": "Authentication, passwords, authorization and secure development",
+          "lessons": [
+            {
+              "id": "security-foundations",
+              "title": "Foundations of Security",
+              "minutes": 75,
+              "video": "",
+              "summary": "Learn the core ideas of information security and refresh the technologies used in this part."
+            },
+            {
+              "id": "identity-and-authentication",
+              "title": "Identity and Authentication",
+              "minutes": 120,
+              "video": "",
+              "summary": "Explore how web systems identify users, from sessions to JSON Web Tokens and identity providers."
+            },
+            {
+              "id": "passwords",
+              "title": "Passwords",
+              "minutes": 90,
+              "video": "",
+              "summary": "Store and check passwords safely, and avoid the common mistakes that lead to breaches."
+            },
+            {
+              "id": "access-and-authorization",
+              "title": "Access and Authorization",
+              "minutes": 120,
+              "video": "",
+              "summary": "Restrict actions to the right users with permissions and role-based access control across the stack."
+            },
+            {
+              "id": "thinking-adversarially",
+              "title": "Thinking Adversarially",
+              "minutes": 75,
+              "video": "",
+              "summary": "Think like an attacker, build security into your process, and keep up with new threats."
+            },
+            {
+              "id": "project-coffee-shop",
+              "title": "Project: Coffee Shop Full Stack",
+              "type": "project",
+              "minutes": 600,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Secure the backend of a coffee shop menu app with authentication and role-based permissions."
+            }
+          ]
+        },
+        {
+          "title": "Congratulations!",
+          "summary": "Celebrate and plan your next steps",
+          "lessons": [
+            {
+              "id": "congratulations",
+              "title": "Congratulations!",
+              "minutes": 10,
+              "video": "",
+              "summary": "Celebrate finishing the program and choose your next steps as a backend developer."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -91,6 +91,56 @@
           ]
         }
       ]
+    },
+    {
+      "id": "github-basics",
+      "title": "GitHub for beginners",
+      "summary": "Save every version of your work, collaborate without overwriting each other, and build a public portfolio of your projects.",
+      "description": "GitHub is where most programmers keep and share their code. You'll start in the browser with no installs, learn the branch and pull request workflow real teams use, then connect Git on your own computer.",
+      "level": "Beginner",
+      "color": "#C2255C",
+      "tags": ["git", "github", "version control", "collaboration"],
+      "outcomes": [
+        "Explain the difference between Git and GitHub",
+        "Create repositories and save changes as commits",
+        "Propose and merge changes with branches and pull requests",
+        "Plan work and collaborate using issues",
+        "Use Git on your own computer to clone, commit and push",
+        "Build a GitHub profile that shows off your projects"
+      ],
+      "project": {
+        "title": "Final project: your GitHub portfolio",
+        "description": "Create a profile README, then improve it through a branch and a merged pull request. Send your teacher the link to your profile.",
+        "url": "",
+        "button": "Submit your profile link"
+      },
+      "modules": [
+        {
+          "title": "Get started",
+          "summary": "What Git and GitHub are, and your first repository",
+          "lessons": [
+            { "id": "what-are-git-and-github", "title": "What are Git and GitHub?", "minutes": 10, "video": "" },
+            { "id": "your-first-repository", "title": "Your account and first repository", "minutes": 15, "video": "" }
+          ]
+        },
+        {
+          "title": "Work in the browser",
+          "summary": "Commits, branches, pull requests and issues",
+          "lessons": [
+            { "id": "commits", "title": "Saving changes with commits", "minutes": 15, "video": "" },
+            { "id": "branches-and-pull-requests", "title": "Branches and pull requests", "minutes": 25, "video": "" },
+            { "id": "issues-and-teamwork", "title": "Issues and working together", "minutes": 15, "video": "" }
+          ]
+        },
+        {
+          "title": "Work on your computer",
+          "summary": "Git on your own machine, and showing off your work",
+          "lessons": [
+            { "id": "git-on-your-computer", "title": "Git on your computer", "minutes": 25, "video": "" },
+            { "id": "your-github-profile", "title": "Show your work with a profile", "minutes": 15, "video": "" }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -1,0 +1,96 @@
+{
+  "site": {
+    "title": "Grade 10 Computer Science",
+    "tagline": "Lessons, videos and quizzes for our class. Work at your own pace; the site remembers where you stopped.",
+    "teacher": "Ms. Rivera",
+    "lang": "en",
+    "dir": "ltr",
+    "requireQuiz": false
+  },
+  "courses": [
+    {
+      "id": "web-basics",
+      "title": "Build your first web page",
+      "summary": "Learn how websites work, write HTML and CSS by hand, and put your own page on the internet.",
+      "description": "You'll start from a blank file and finish with a real web page that anyone can visit. No experience needed: just a browser and a text editor.",
+      "level": "Beginner",
+      "color": "#0F8A6C",
+      "tags": ["html", "css", "web"],
+      "outcomes": [
+        "Explain what happens when you open a website",
+        "Write a page with headings, paragraphs, links and images",
+        "Style a page with colors, fonts and simple layouts",
+        "Publish your page for free with GitHub Pages"
+      ],
+      "project": {
+        "title": "Final project: an About Me page",
+        "description": "Build a one-page site about yourself or a hobby, publish it, and send your teacher the link.",
+        "url": "",
+        "button": "Submit your link"
+      },
+      "modules": [
+        {
+          "title": "How the web works",
+          "summary": "What a browser does and the three languages of the web",
+          "lessons": [
+            { "id": "how-the-web-works", "title": "What happens when you open a website", "minutes": 10, "video": "" },
+            { "id": "first-html-page", "title": "Your first HTML page", "minutes": 20, "video": "" }
+          ]
+        },
+        {
+          "title": "Make it look good",
+          "summary": "Colors, fonts and layout with CSS",
+          "lessons": [
+            { "id": "styling-with-css", "title": "Styling with CSS", "minutes": 20, "video": "" },
+            { "id": "boxes-and-layout", "title": "Boxes and layout", "minutes": 25, "video": "" }
+          ]
+        },
+        {
+          "title": "Put it online",
+          "lessons": [
+            { "id": "publish-your-page", "title": "Publish your page on GitHub Pages", "minutes": 15, "video": "" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "python-basics",
+      "title": "Python from zero",
+      "summary": "Write your first programs: store information, ask the user questions, make decisions and repeat work with loops.",
+      "description": "Python is one of the easiest programming languages to start with and one of the most used in the world. By the end you'll write a small number-guessing game.",
+      "level": "Beginner",
+      "color": "#6D3FD6",
+      "tags": ["python", "programming"],
+      "outcomes": [
+        "Run Python code in your browser or on your computer",
+        "Store and change information with variables",
+        "Make choices with if, elif and else",
+        "Repeat steps with for and while loops"
+      ],
+      "project": {
+        "title": "Final project: a guessing game",
+        "description": "Write a game where the computer picks a number and the player keeps guessing until they get it. Share your code with your teacher.",
+        "url": ""
+      },
+      "modules": [
+        {
+          "title": "First steps",
+          "summary": "Programs, variables, input and output",
+          "lessons": [
+            { "id": "what-is-a-program", "title": "What is a program?", "minutes": 10, "video": "" },
+            { "id": "variables", "title": "Variables and types", "minutes": 20, "video": "" },
+            { "id": "input-and-output", "title": "Talking to the user", "minutes": 15, "video": "" }
+          ]
+        },
+        {
+          "title": "Decisions and repetition",
+          "summary": "Make your programs react and repeat",
+          "lessons": [
+            { "id": "if-statements", "title": "Making decisions with if", "minutes": 20, "video": "" },
+            { "id": "loops", "title": "Repeating with loops", "minutes": 25, "video": "" }
+          ]
+        }
+      ]
+    }
+  ]
+}

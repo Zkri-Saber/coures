@@ -2,7 +2,7 @@
   "site": {
     "title": "Grade 10 Computer Science",
     "tagline": "Lessons, videos and quizzes for our class. Work at your own pace; the site remembers where you stopped.",
-    "teacher": "Ms. Rivera",
+    "teacher": "Zkri Saber",
     "lang": "en",
     "dir": "ltr",
     "requireQuiz": false
@@ -393,6 +393,240 @@
               "video": "",
               "submitUrl": "",
               "summary": "Apply what you learned by tailoring your resume to a real job posting, highlighting your achievements and transferable skills, and submitting it for feedback."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "backend-python",
+      "title": "Backend Developer with Python",
+      "summary": "Build real-world web applications from scratch. This program teaches full stack development using Flask, SQL and Docker, with a focus on APIs, security and deployment skills.",
+      "description": "Build real-world web applications from scratch. This program teaches full stack development using Flask, SQL and Docker, with a focus on APIs, security and deployment skills. You'll design databases, build and test REST APIs, and secure them with authentication and role-based access, finishing three portfolio projects along the way.",
+      "subject": "Web Development",
+      "type": "Program",
+      "level": "Intermediate",
+      "color": "#9333EA",
+      "cover": "server",
+      "tags": ["Flask", "SQLAlchemy", "SQL", "PostgreSQL", "Data modeling", "Database migrations", "HTTP", "REST APIs", "API testing", "API documentation", "CORS", "Authentication", "Authorization", "Password security", "Application security", "Docker"],
+      "prerequisites": [
+        "Command line basics (see [Linux for beginners](#/course/linux-basics))",
+        "Basic programming in Python (see [Python from zero](#/course/python-basics))",
+        "Relational database basics: tables, rows, primary and foreign keys",
+        "Basic SQL: SELECT, INSERT, UPDATE, DELETE and JOIN",
+        "Git and GitHub (see [GitHub for beginners](#/course/github-basics))",
+        "Helpful but not required: basic HTML and how the web works"
+      ],
+      "outcomes": [
+        "Design relational data models and query them with SQL and SQLAlchemy",
+        "Evolve a database schema safely with migrations",
+        "Build a database-backed web app with full create, read, update and delete",
+        "Design, build, test and document REST APIs with Flask",
+        "Add authentication and role-based access control to an API",
+        "Spot and prevent the most common web security weaknesses"
+      ],
+      "modules": [
+        {
+          "title": "Welcome to the Program",
+          "summary": "What to expect and how to succeed",
+          "lessons": [
+            {
+              "id": "welcome",
+              "title": "Welcome to the Backend Developer with Python Program",
+              "minutes": 20,
+              "video": "",
+              "summary": "See what you'll build, how the program is organised and how to plan your study time."
+            },
+            {
+              "id": "getting-help",
+              "title": "Getting Help",
+              "minutes": 30,
+              "video": "",
+              "summary": "Learn to debug on your own, ask clear questions, and know where to go when you're stuck."
+            }
+          ]
+        },
+        {
+          "title": "SQL and Data Modeling for the Web with Python",
+          "summary": "Databases, SQLAlchemy and a complete database-backed web app",
+          "lessons": [
+            {
+              "id": "course-introduction",
+              "title": "Course Introduction",
+              "minutes": 15,
+              "video": "",
+              "summary": "Find out what this course covers, the app you'll build, and the skills you'll leave with."
+            },
+            {
+              "id": "setup-environment",
+              "title": "Set Up Your Development Environment",
+              "minutes": 45,
+              "video": "",
+              "summary": "Install Python, create a virtual environment, and run PostgreSQL locally with Docker or an installer."
+            },
+            {
+              "id": "interacting-with-databases",
+              "title": "Interacting with Databases",
+              "minutes": 90,
+              "video": "",
+              "summary": "Review SQL and the client-server model, then talk to PostgreSQL from Python with a database driver."
+            },
+            {
+              "id": "sqlalchemy-basics",
+              "title": "SQLAlchemy Basics",
+              "minutes": 90,
+              "video": "",
+              "summary": "Connect Flask to a database with Flask-SQLAlchemy, define models and create tables."
+            },
+            {
+              "id": "sqlalchemy-orm-in-depth",
+              "title": "SQLAlchemy ORM in Depth",
+              "minutes": 120,
+              "video": "",
+              "summary": "Query, filter, sort and change records, and understand the session and the object lifecycle."
+            },
+            {
+              "id": "migrations",
+              "title": "Migrations",
+              "minutes": 90,
+              "video": "",
+              "summary": "Change your database schema safely over time with Flask-Migrate and version-controlled migration files."
+            },
+            {
+              "id": "crud-app-part-1",
+              "title": "Build a CRUD App with SQLAlchemy, Part 1",
+              "minutes": 110,
+              "video": "",
+              "summary": "Start a to-do app: create and read items, connect the views to the database, and handle errors."
+            },
+            {
+              "id": "crud-app-part-2",
+              "title": "Build a CRUD App with SQLAlchemy, Part 2",
+              "minutes": 110,
+              "video": "",
+              "summary": "Finish the app with update and delete, and model one-to-many relationships between lists and to-dos."
+            },
+            {
+              "id": "project-booking-site",
+              "title": "Project: Artist Booking Site",
+              "type": "project",
+              "minutes": 600,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Show your data modeling and SQLAlchemy skills by building a site that helps artists and venues book shows."
+            }
+          ]
+        },
+        {
+          "title": "API Development and Documentation",
+          "summary": "Design, build, test and document REST APIs with Flask",
+          "lessons": [
+            {
+              "id": "introduction-to-apis",
+              "title": "Introduction to APIs",
+              "minutes": 45,
+              "video": "",
+              "summary": "Learn what APIs are, why they matter, how internet protocols fit in, and the principles of REST."
+            },
+            {
+              "id": "http-and-flask-basics",
+              "title": "HTTP and Flask Basics",
+              "minutes": 75,
+              "video": "",
+              "summary": "Understand HTTP methods, requests, responses and status codes, then build and test Flask endpoints with curl."
+            },
+            {
+              "id": "endpoints-and-payloads",
+              "title": "Endpoints and Payloads",
+              "minutes": 90,
+              "video": "",
+              "summary": "Handle different methods, route parameters, pagination and JSON payloads, and return consistent errors."
+            },
+            {
+              "id": "api-testing",
+              "title": "API Testing",
+              "minutes": 75,
+              "video": "",
+              "summary": "Test your API with unittest and Flask's test client, and try test-driven development."
+            },
+            {
+              "id": "api-documentation",
+              "title": "API Documentation",
+              "minutes": 45,
+              "video": "",
+              "summary": "Write clear API and project documentation so other developers can run and use your work."
+            },
+            {
+              "id": "project-trivia-api",
+              "title": "Project: Trivia API",
+              "type": "project",
+              "minutes": 210,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Build and document a tested REST API that powers a trivia game."
+            }
+          ]
+        },
+        {
+          "title": "Identity and Access Management",
+          "summary": "Authentication, passwords, authorization and secure development",
+          "lessons": [
+            {
+              "id": "security-foundations",
+              "title": "Foundations of Security",
+              "minutes": 75,
+              "video": "",
+              "summary": "Learn the core ideas of information security and refresh the technologies used in this part."
+            },
+            {
+              "id": "identity-and-authentication",
+              "title": "Identity and Authentication",
+              "minutes": 120,
+              "video": "",
+              "summary": "Explore how web systems identify users, from sessions to JSON Web Tokens and identity providers."
+            },
+            {
+              "id": "passwords",
+              "title": "Passwords",
+              "minutes": 90,
+              "video": "",
+              "summary": "Store and check passwords safely, and avoid the common mistakes that lead to breaches."
+            },
+            {
+              "id": "access-and-authorization",
+              "title": "Access and Authorization",
+              "minutes": 120,
+              "video": "",
+              "summary": "Restrict actions to the right users with permissions and role-based access control across the stack."
+            },
+            {
+              "id": "thinking-adversarially",
+              "title": "Thinking Adversarially",
+              "minutes": 75,
+              "video": "",
+              "summary": "Think like an attacker, build security into your process, and keep up with new threats."
+            },
+            {
+              "id": "project-coffee-shop",
+              "title": "Project: Coffee Shop Full Stack",
+              "type": "project",
+              "minutes": 600,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Secure the backend of a coffee shop menu app with authentication and role-based permissions."
+            }
+          ]
+        },
+        {
+          "title": "Congratulations!",
+          "summary": "Celebrate and plan your next steps",
+          "lessons": [
+            {
+              "id": "congratulations",
+              "title": "Congratulations!",
+              "minutes": 10,
+              "video": "",
+              "summary": "Celebrate finishing the program and choose your next steps as a backend developer."
             }
           ]
         }

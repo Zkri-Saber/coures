@@ -69,7 +69,7 @@ At the top of `content/courses.json`:
 "site": {
   "title": "Grade 10 Computer Science",
   "tagline": "Lessons, videos and quizzes for our class.",
-  "teacher": "Ms. Rivera",
+  "teacher": "Zkri Saber",
   "lang": "en",
   "dir": "ltr",
   "requireQuiz": false
@@ -106,14 +106,15 @@ Course fields:
 | `summary` | | One or two sentences for the course list |
 | `description` | | Longer intro on the course page (falls back to `summary`) |
 | `subject` | | Groups courses in the **Subject** filter, e.g. `Programming` |
-| `type` | | Label on the card and in the **Type** filter, e.g. `Course`, `Workshop`, `Project` (default `Course`) |
+| `type` | | Label on the card and in the **Type** filter, e.g. `Course`, `Program`, `Workshop` (default `Course`) |
 | `level` | | e.g. `Beginner`, `Intermediate`, `Advanced`. Shown on the card and in the **Level** filter |
-| `tags` | | List of skills, e.g. `["Python", "Loops"]`. These make up the **Skill** filter |
+| `tags` | | List of skills, e.g. `["Python", "Loops"]`. They appear as **Skills you'll learn** on the course page and make up the **Skill** filter |
 | `color` | | The course's accent color (card badge and progress lines), e.g. `"#2563EB"`. Pick a darker shade so it shows up well |
-| `cover` | | Style of the generated card picture: `web`, `code`, `branches`, `terminal` or `chart`. Leave it out and the site picks one from the tags |
+| `cover` | | Style of the generated card picture: `web`, `code`, `server`, `branches`, `terminal`, `document` or `chart`. Leave it out and the site picks one from the tags |
 | `image` | | Your own card picture instead, e.g. `"algebra-1/cover.jpg"` (a file in the course folder, roughly 2:1 wide) |
 | `hours` | | Overrides the total time added up from lesson minutes |
 | `outcomes` | | List of "What you'll learn" points |
+| `prerequisites` | | List of what students should know first. Links work, e.g. `"Python basics (see [Python from zero](#/course/python-basics))"` |
 | `project` | | A final project without its own page: `title`, `description`, `url` (e.g. a Google Form) and `button` text. For a full project page, use a project lesson instead (see *Add a project*) |
 | `teacher` | | Overrides the site teacher for this course |
 | `requireQuiz` | | Overrides the site setting for this course |

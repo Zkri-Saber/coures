@@ -707,6 +707,18 @@ p { margin: 0; text-wrap: pretty; }
 .aside-block p { color: var(--ink-2); }
 .aside-block .btn { margin-top: 1rem; }
 .aside-block.finished { border-inline-start: 6px solid var(--line); }
+.chips { list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: 0.5rem; }
+.chips li {
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--line) 9%, var(--surface));
+  border: 1px solid color-mix(in srgb, var(--line) 28%, var(--surface));
+  color: var(--ink);
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+.prereqs { margin: 0.75rem 0 0; padding-inline-start: 1.2rem; color: var(--ink-2); display: grid; gap: 0.4rem; }
+.prereqs a { color: var(--blue); }
 
 /* Course outline */
 .outline-head {

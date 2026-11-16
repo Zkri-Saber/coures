@@ -81,9 +81,13 @@
     done: "Done",
     lessonOf: "Lesson {i} of {n}",
     courseOutline: "Course Outline",
+    prerequisites: "Prerequisites",
+    prerequisitesIntro: "Before you start, you should be comfortable with:",
+    skillsTitle: "Skills you'll learn",
     projectsCount: "{n} projects",
     oneProject: "1 project",
     projectWord: "Project",
+    projectsWord: "Projects",
     lessonPill: "L{n}",
     projectPill: "P",
     readyToSubmit: "Ready to submit?",
@@ -174,6 +178,11 @@
     return n === 1 ? t("oneLesson") : t("lessonsCount", { n: n });
   }
 
+  /* Lesson length: "45 min" under an hour, otherwise "1.5 hours" */
+  function lessonTime(minutes) {
+    return minutes >= 60 ? formatDuration(minutes) : t("minutesShort", { n: minutes });
+  }
+
   /* Short duration for cards: "45 minutes", "1 hour", "2.5 hours" */
   function formatDuration(minutes) {
     if (!minutes) return "";
@@ -211,6 +220,7 @@
     branches: '<circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="6.5" r="2.2"/><path d="M6 7.2v9.6M18 8.7c0 5.3-6.5 4-11 8.3"/>',
     terminal: '<path d="M4 6.5l5.5 5.5L4 17.5M12 18h8"/>',
     chart: '<path d="M5 19v-6M10 19V5M15 19v-9M20 19v-4"/>',
+    server: '<ellipse cx="12" cy="5.5" rx="7" ry="2.8"/><path d="M5 5.5v13c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8v-13M5 12c0 1.5 3.1 2.8 7 2.8s7-1.3 7-2.8"/>',
     document: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="10" cy="11" r="1.8"/><path d="M8 16h8M13.5 11H16"/>'
   };
 
@@ -220,6 +230,7 @@
     var tags = (course.tags || course.skills || []).join(" ").toLowerCase() + " " + course.title.toLowerCase();
     if (/resume|career|job|interview|\bcv\b/.test(tags)) return "document";
     if (/git|version/.test(tags)) return "branches";
+    if (/flask|backend|\bapi|server|database|sql/.test(tags)) return "server";
     if (/linux|terminal|bash|shell|command/.test(tags)) return "terminal";
     if (/html|css|web/.test(tags)) return "web";
     if (/python|program|code|java/.test(tags)) return "code";
@@ -298,6 +309,21 @@
       xs.forEach(function (x) { art += '<circle cx="' + x + '" cy="' + ys + '" r="7" fill="#071548" stroke="' + light + '" stroke-width="3"/>'; });
       [170, 210].forEach(function (x) { art += '<circle cx="' + x + '" cy="60" r="7" fill="#071548" stroke="' + accent + '" stroke-width="3"/>'; });
       art += '<circle cx="290" cy="' + ys + '" r="9" fill="' + accent + '"/>';
+    } else if (kind === "server") {
+      var rack = "";
+      for (var u = 0; u < 3; u++) {
+        var ry = 30 + u * 42;
+        rack += '<rect x="196" y="' + ry + '" width="136" height="34" rx="6" fill="#0b1f6b" stroke="' + bright + '" stroke-opacity=".7"/>' +
+          '<circle cx="212" cy="' + (ry + 17) + '" r="4" fill="' + (u === 1 ? accent : "#3ee0a1") + '"/>' +
+          '<rect x="226" y="' + (ry + 11) + '" width="' + (60 + rnd() * 30).toFixed(0) + '" height="5" rx="2.5" fill="' + light + '" fill-opacity=".6"/>' +
+          '<rect x="226" y="' + (ry + 20) + '" width="' + (30 + rnd() * 30).toFixed(0) + '" height="5" rx="2.5" fill="' + light + '" fill-opacity=".3"/>' +
+          '<path d="M300 ' + (ry + 9) + "v16M308 " + (ry + 9) + "v16M316 " + (ry + 9) + 'v16" stroke="' + bright + '" stroke-width="3" stroke-opacity=".5"/>';
+      }
+      art = '<path d="M158 72H196M158 114H196" stroke="' + accent + '" stroke-width="3" stroke-dasharray="2 7" stroke-linecap="round"/>' +
+        '<g fill="#0d2378" stroke="' + light + '" stroke-width="2.5"><path d="M78 52v84c0 9 18 16 40 16V52"/><path d="M158 52v84c0 9-18 16-40 16V52"/>' +
+        '<ellipse cx="118" cy="52" rx="40" ry="14"/></g>' +
+        '<path d="M78 80c0 9 18 16 40 16s40-7 40-16M78 108c0 9 18 16 40 16s40-7 40-16" fill="none" stroke="' + light + '" stroke-width="2.5" stroke-opacity=".7"/>' +
+        '<text x="102" y="100" font-family="ui-monospace, Menlo, Consolas, monospace" font-size="18" font-weight="700" fill="' + accent + '">{ }</text>' + rack;
     } else if (kind === "document") {
       art = '<g transform="rotate(-6 250 95)"><rect x="176" y="18" width="128" height="160" rx="6" fill="#0d2378" stroke="' + bright + '" stroke-opacity=".6"/></g>' +
         '<rect x="196" y="14" width="132" height="168" rx="6" fill="#f8fbff"/>' +
@@ -431,8 +457,8 @@
         var done = isDone(course.id, l.id);
         var isNext = !done && s.next && s.next.lesson.id === l.id;
         var meta = done ? '<span class="outline-meta is-done">' + svgIcon(ICONS.check) + t("done") + "</span>" :
-          isNext ? '<span class="outline-meta is-next">' + t("upNext") + (l.minutes ? ", " + t("minutesShort", { n: l.minutes }) : "") + "</span>" :
-          (l.minutes ? '<span class="outline-meta">' + t("minutesShort", { n: l.minutes }) + "</span>" : "");
+          isNext ? '<span class="outline-meta is-next">' + t("upNext") + (l.minutes ? ", " + lessonTime(l.minutes) : "") + "</span>" :
+          (l.minutes ? '<span class="outline-meta">' + lessonTime(l.minutes) + "</span>" : "");
         html += '<li class="outline-row' + (done ? " done" : "") + '">' + pill(l) +
           '<div class="outline-name"><a href="' + href("course", course.id, l.id) + '">' + esc(l.title) + "</a>" + meta + "</div>" +
           '<p class="outline-desc">' + (l.summary ? inlineMd(l.summary) : "") + "</p></li>";
@@ -516,7 +542,7 @@
         var isNext = !done && s.next && s.next.lesson.id === l.id;
         var cls = "station" + (done ? " done" : "") + (isNext ? " next" : "");
         var meta = done ? t("done") : isNext ? '<span class="tag-next">' + t("upNext") + "</span>" :
-          (l.minutes ? t("minutesShort", { n: l.minutes }) : "");
+          (l.minutes ? lessonTime(l.minutes) : "");
         var current = l.id === currentLessonId ? ' aria-current="page"' : "";
         var srState = done ? '<span class="visually-hidden"> (' + t("done") + ")</span>" : "";
         html += '<li class="' + cls + '"' + current + '><a href="' + href("course", course.id, l.id) + '">' +
@@ -782,7 +808,7 @@
     var facts = "";
     if (course.level) facts += fact(ICONS.level, t("level"), esc(course.level));
     facts += fact(ICONS.lessons, t("lessons"), s.lessons);
-    if (s.projects) facts += fact(ICONS.course, t("projectWord"), s.projects);
+    if (s.projects) facts += fact(ICONS.course, t(s.projects > 1 ? "projectsWord" : "projectWord"), s.projects);
     if (s.minutes) facts += fact(ICONS.duration, t("time"), formatTime(s.minutes));
     var teacher = course.teacher || SITE.teacher;
     if (teacher) facts += fact(ICONS.teacher, t("teacher"), esc(teacher));
@@ -795,6 +821,15 @@
     if (course.outcomes && course.outcomes.length) {
       aside += '<section class="panel aside-block"><h2>' + t("outcomes") + '</h2><ul class="outcomes">' +
         course.outcomes.map(function (o) { return "<li>" + inlineMd(o) + "</li>"; }).join("") + "</ul></section>";
+    }
+    var skills = course.skills || course.tags || [];
+    if (skills.length) {
+      aside += '<section class="panel aside-block"><h2>' + t("skillsTitle") + '</h2><ul class="chips">' +
+        skills.map(function (k) { return "<li>" + esc(k) + "</li>"; }).join("") + "</ul></section>";
+    }
+    if (course.prerequisites && course.prerequisites.length) {
+      aside += '<section class="panel aside-block"><h2>' + t("prerequisites") + "</h2><p>" + t("prerequisitesIntro") + '</p><ul class="prereqs">' +
+        course.prerequisites.map(function (o) { return "<li>" + inlineMd(o) + "</li>"; }).join("") + "</ul></section>";
     }
 
     main.innerHTML =
@@ -856,7 +891,7 @@
               '<h1 tabindex="-1">' + esc(lesson.title) + "</h1>" +
               '<p class="lesson-facts">' + (isProject(lesson) ? t("projectWord") :
                 t("lessonOf", { i: s.list.slice(0, item.index + 1).filter(function (x) { return !isProject(x.lesson); }).length, n: s.lessons })) +
-                (lesson.minutes ? "<span aria-hidden=\"true\">&ensp;/&ensp;</span>" + t("minutesShort", { n: lesson.minutes }) : "") + "</p>" +
+                (lesson.minutes ? "<span aria-hidden=\"true\">&ensp;/&ensp;</span>" + lessonTime(lesson.minutes) : "") + "</p>" +
             "</header>" +
             videoHtml(lesson) +
             '<div class="prose" id="lesson-body"><p class="loading" style="padding:0">' + t("loading") + "</p></div>" +

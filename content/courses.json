@@ -36,22 +36,52 @@
           "title": "How the web works",
           "summary": "What a browser does and the three languages of the web",
           "lessons": [
-            { "id": "how-the-web-works", "title": "What happens when you open a website", "minutes": 10, "video": "" },
-            { "id": "first-html-page", "title": "Your first HTML page", "minutes": 20, "video": "" }
+            {
+              "id": "how-the-web-works",
+              "title": "What happens when you open a website",
+              "minutes": 10,
+              "video": "",
+              "summary": "Follow a web page from the address bar to your screen, and meet HTML, CSS and JavaScript."
+            },
+            {
+              "id": "first-html-page",
+              "title": "Your first HTML page",
+              "minutes": 20,
+              "video": "",
+              "summary": "Write a complete page with headings, paragraphs, lists, links and images."
+            }
           ]
         },
         {
           "title": "Make it look good",
           "summary": "Colors, fonts and layout with CSS",
           "lessons": [
-            { "id": "styling-with-css", "title": "Styling with CSS", "minutes": 20, "video": "" },
-            { "id": "boxes-and-layout", "title": "Boxes and layout", "minutes": 25, "video": "" }
+            {
+              "id": "styling-with-css",
+              "title": "Styling with CSS",
+              "minutes": 20,
+              "video": "",
+              "summary": "Connect a stylesheet and change colors, fonts and spacing, including with classes."
+            },
+            {
+              "id": "boxes-and-layout",
+              "title": "Boxes and layout",
+              "minutes": 25,
+              "video": "",
+              "summary": "Understand the box model and line up elements side by side with flexbox."
+            }
           ]
         },
         {
           "title": "Put it online",
           "lessons": [
-            { "id": "publish-your-page", "title": "Publish your page on GitHub Pages", "minutes": 15, "video": "" }
+            {
+              "id": "publish-your-page",
+              "title": "Publish your page on GitHub Pages",
+              "minutes": 15,
+              "video": "",
+              "summary": "Put your page online for free with GitHub Pages and share the link."
+            }
           ]
         }
       ]
@@ -83,17 +113,47 @@
           "title": "First steps",
           "summary": "Programs, variables, input and output",
           "lessons": [
-            { "id": "what-is-a-program", "title": "What is a program?", "minutes": 10, "video": "" },
-            { "id": "variables", "title": "Variables and types", "minutes": 20, "video": "" },
-            { "id": "input-and-output", "title": "Talking to the user", "minutes": 15, "video": "" }
+            {
+              "id": "what-is-a-program",
+              "title": "What is a program?",
+              "minutes": 10,
+              "video": "",
+              "summary": "Run your first line of Python, see how programs run top to bottom, and read error messages."
+            },
+            {
+              "id": "variables",
+              "title": "Variables and types",
+              "minutes": 20,
+              "video": "",
+              "summary": "Store values in variables and learn the difference between text, whole numbers, decimals and True/False."
+            },
+            {
+              "id": "input-and-output",
+              "title": "Talking to the user",
+              "minutes": 15,
+              "video": "",
+              "summary": "Ask the user questions with input(), convert their answers to numbers, and print with f-strings."
+            }
           ]
         },
         {
           "title": "Decisions and repetition",
           "summary": "Make your programs react and repeat",
           "lessons": [
-            { "id": "if-statements", "title": "Making decisions with if", "minutes": 20, "video": "" },
-            { "id": "loops", "title": "Repeating with loops", "minutes": 25, "video": "" }
+            {
+              "id": "if-statements",
+              "title": "Making decisions with if",
+              "minutes": 20,
+              "video": "",
+              "summary": "Make your program choose what to do with if, elif and else, and combine conditions."
+            },
+            {
+              "id": "loops",
+              "title": "Repeating with loops",
+              "minutes": 25,
+              "video": "",
+              "summary": "Repeat work with for and while loops, then start building a number-guessing game."
+            }
           ]
         }
       ]
@@ -128,25 +188,67 @@
           "title": "Get started",
           "summary": "What Git and GitHub are, and your first repository",
           "lessons": [
-            { "id": "what-are-git-and-github", "title": "What are Git and GitHub?", "minutes": 10, "video": "" },
-            { "id": "your-first-repository", "title": "Your account and first repository", "minutes": 15, "video": "" }
+            {
+              "id": "what-are-git-and-github",
+              "title": "What are Git and GitHub?",
+              "minutes": 10,
+              "video": "",
+              "summary": "Learn how Git tracks every version of your work and how GitHub adds teamwork on top."
+            },
+            {
+              "id": "your-first-repository",
+              "title": "Your account and first repository",
+              "minutes": 15,
+              "video": "",
+              "summary": "Create your account and a repository with a README, and find your way around it."
+            }
           ]
         },
         {
           "title": "Work in the browser",
           "summary": "Commits, branches, pull requests and issues",
           "lessons": [
-            { "id": "commits", "title": "Saving changes with commits", "minutes": 15, "video": "" },
-            { "id": "branches-and-pull-requests", "title": "Branches and pull requests", "minutes": 25, "video": "" },
-            { "id": "issues-and-teamwork", "title": "Issues and working together", "minutes": 15, "video": "" }
+            {
+              "id": "commits",
+              "title": "Saving changes with commits",
+              "minutes": 15,
+              "video": "",
+              "summary": "Edit files in the browser, save them as commits, read the history and write good commit messages."
+            },
+            {
+              "id": "branches-and-pull-requests",
+              "title": "Branches and pull requests",
+              "minutes": 25,
+              "video": "",
+              "summary": "Work safely on a branch, propose changes with a pull request, then review and merge."
+            },
+            {
+              "id": "issues-and-teamwork",
+              "title": "Issues and working together",
+              "minutes": 15,
+              "video": "",
+              "summary": "Track tasks with issues, close them from pull requests, invite teammates and fork projects."
+            }
           ]
         },
         {
           "title": "Work on your computer",
           "summary": "Git on your own machine, and showing off your work",
           "lessons": [
-            { "id": "git-on-your-computer", "title": "Git on your computer", "minutes": 25, "video": "" },
-            { "id": "your-github-profile", "title": "Show your work with a profile", "minutes": 15, "video": "" }
+            {
+              "id": "git-on-your-computer",
+              "title": "Git on your computer",
+              "minutes": 25,
+              "video": "",
+              "summary": "Install Git, then clone, commit, push and pull from your own computer."
+            },
+            {
+              "id": "your-github-profile",
+              "title": "Show your work with a profile",
+              "minutes": 15,
+              "video": "",
+              "summary": "Build a profile README and pin your best projects so others can see your work."
+            }
           ]
         }
       ]
@@ -181,26 +283,117 @@
           "title": "Meet Linux",
           "summary": "What Linux is and how to get a terminal",
           "lessons": [
-            { "id": "what-is-linux", "title": "What is Linux?", "minutes": 10, "video": "" },
-            { "id": "get-a-terminal", "title": "Get a Linux terminal", "minutes": 15, "video": "" }
+            {
+              "id": "what-is-linux",
+              "title": "What is Linux?",
+              "minutes": 10,
+              "video": "",
+              "summary": "Find out what Linux is, what distributions are, and why the command line is worth learning."
+            },
+            {
+              "id": "get-a-terminal",
+              "title": "Get a Linux terminal",
+              "minutes": 15,
+              "video": "",
+              "summary": "Open a Linux terminal on Windows, Chromebook, Mac or in your browser."
+            }
           ]
         },
         {
           "title": "The command line",
           "summary": "Commands, folders and files",
           "lessons": [
-            { "id": "first-commands", "title": "Your first commands", "minutes": 15, "video": "" },
-            { "id": "finding-your-way", "title": "Finding your way around", "minutes": 20, "video": "" },
-            { "id": "working-with-files", "title": "Creating and managing files", "minutes": 25, "video": "" }
+            {
+              "id": "first-commands",
+              "title": "Your first commands",
+              "minutes": 15,
+              "video": "",
+              "summary": "Read the prompt, run your first commands and use shortcuts like Tab and Ctrl + C."
+            },
+            {
+              "id": "finding-your-way",
+              "title": "Finding your way around",
+              "minutes": 20,
+              "video": "",
+              "summary": "Move around the folder tree with pwd, ls and cd, using absolute and relative paths."
+            },
+            {
+              "id": "working-with-files",
+              "title": "Creating and managing files",
+              "minutes": 25,
+              "video": "",
+              "summary": "Create, read, edit, copy, move and delete files and folders, and use wildcards."
+            }
           ]
         },
         {
           "title": "Power tools",
           "summary": "Permissions, software and scripts",
           "lessons": [
-            { "id": "permissions-and-sudo", "title": "Permissions and sudo", "minutes": 20, "video": "" },
-            { "id": "installing-software", "title": "Installing software", "minutes": 15, "video": "" },
-            { "id": "pipes-and-scripts", "title": "Pipes, search and your first script", "minutes": 25, "video": "" }
+            {
+              "id": "permissions-and-sudo",
+              "title": "Permissions and sudo",
+              "minutes": 20,
+              "video": "",
+              "summary": "Read file permissions, change them with chmod, and use sudo safely."
+            },
+            {
+              "id": "installing-software",
+              "title": "Installing software",
+              "minutes": 15,
+              "video": "",
+              "summary": "Install, update and remove software with the apt package manager."
+            },
+            {
+              "id": "pipes-and-scripts",
+              "title": "Pipes, search and your first script",
+              "minutes": 25,
+              "video": "",
+              "summary": "Combine commands with pipes, search with grep and find, and write your first script."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "resume-writing",
+      "title": "How to Write A Resume to Get Hired",
+      "summary": "Discover the art of creating a resume that stands out in the competitive job market and submit your resume to be reviewed by our industry experts.",
+      "description": "Discover the art of creating a resume that stands out in the competitive job market and submit your resume to be reviewed by our industry experts. You will receive direct, constructive feedback on your resume guiding you through developing compelling narratives to showcase your skills & experiences, maximizing your chances of being noticed and shortlisted by employers.",
+      "subject": "Career Skills",
+      "type": "Course",
+      "level": "Beginner",
+      "color": "#EA580C",
+      "cover": "document",
+      "tags": ["Resume writing", "Job search", "ATS", "Personal branding"],
+      "outcomes": [
+        "Structure a clear resume with the sections employers expect",
+        "Turn everyday duties into achievements with measurable results",
+        "Tailor your resume to a specific job posting and its keywords",
+        "Format your resume so applicant tracking systems can read it",
+        "Use AI tools to improve your resume without losing accuracy or your own voice",
+        "Show transferable skills from school, volunteering and other experience"
+      ],
+      "modules": [
+        {
+          "title": "How to Write A Resume to Get Hired",
+          "lessons": [
+            {
+              "id": "refresh-your-resume",
+              "title": "Refresh Your Resume",
+              "minutes": 45,
+              "video": "",
+              "summary": "Build, tailor and polish a professional resume using proven practices, AI tools and formatting that applicant tracking systems can read."
+            },
+            {
+              "id": "project-refresh-your-resume",
+              "title": "Project: Refresh Your Resume",
+              "type": "project",
+              "minutes": 60,
+              "video": "",
+              "submitUrl": "",
+              "summary": "Apply what you learned by tailoring your resume to a real job posting, highlighting your achievements and transferable skills, and submitting it for feedback."
+            }
           ]
         }
       ]

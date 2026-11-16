@@ -114,7 +114,7 @@ Course fields:
 | `image` | | Your own card picture instead, e.g. `"algebra-1/cover.jpg"` (a file in the course folder, roughly 2:1 wide) |
 | `hours` | | Overrides the total time added up from lesson minutes |
 | `outcomes` | | List of "What you'll learn" points |
-| `project` | | `title`, `description`, `url` (e.g. a Google Form for submissions) and `button` text |
+| `project` | | A final project without its own page: `title`, `description`, `url` (e.g. a Google Form) and `button` text. For a full project page, use a project lesson instead (see *Add a project*) |
 | `teacher` | | Overrides the site teacher for this course |
 | `requireQuiz` | | Overrides the site setting for this course |
 | `draft` | | `true` hides the course from the home page while you work on it (it's still reachable by direct link) |
@@ -124,9 +124,26 @@ Course fields:
 
 1. Add a line to a module's `lessons` list:
    ```json
-   { "id": "fractions", "title": "Working with fractions", "minutes": 15, "video": "" }
+   { "id": "fractions", "title": "Working with fractions", "minutes": 15, "video": "",
+     "summary": "Add, subtract and compare fractions with different denominators." }
    ```
 2. Create `content/<course-id>/fractions.md` and write the lesson in Markdown.
+
+The `summary` is the short description shown next to the lesson in the **Course Outline** on the course page. Lessons are numbered L1, L2, L3... automatically.
+
+### Add a project
+
+A project is a lesson page with instructions for something students make and hand in. Give it `"type": "project"` and, optionally, a link to your submission form:
+
+```json
+{ "id": "project-portfolio", "title": "Project: Build your portfolio", "type": "project",
+  "minutes": 60, "summary": "Create and submit a one-page portfolio.",
+  "submitUrl": "https://forms.gle/your-form" }
+```
+
+Projects get an orange **P** badge in the Course Outline, are counted separately from lessons, and show a **Submit your project** button at the end of the page. If `submitUrl` is empty, students see "Your teacher will tell you how to submit this project." A Google Form or Microsoft Form with a file-upload question works well for collecting work.
+
+The simpler course-level `project` field (a title, description and link, with no page of its own) still works too and appears as the last row of the outline.
 
 ### Add a video
 

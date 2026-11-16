@@ -66,6 +66,7 @@
     noMatches: "No courses match “{q}”. Try a shorter word.",
     noCourses: "There are no courses yet. Add one to content/courses.json.",
     lessonsDone: "of {total} lessons done",
+    stepsDone: "of {total} lessons and projects done",
     startFirst: "Start the first lesson",
     continueTo: "Continue: {title}",
     reviewFromStart: "Review from the start",
@@ -79,6 +80,16 @@
     upNext: "Up next",
     done: "Done",
     lessonOf: "Lesson {i} of {n}",
+    courseOutline: "Course Outline",
+    projectsCount: "{n} projects",
+    oneProject: "1 project",
+    projectWord: "Project",
+    lessonPill: "L{n}",
+    projectPill: "P",
+    readyToSubmit: "Ready to submit?",
+    submitText: "When your work meets every requirement above, send it in for review.",
+    submitProject: "Submit your project",
+    submitHint: "Your teacher will tell you how to submit this project.",
     quizTitle: "Check your understanding",
     quizScore: "{right} of {total} correct",
     checkAnswer: "Check answer",
@@ -190,7 +201,8 @@
     course: '<path d="M3 5.6c2.6-1 5.6-1 9 1 3.4-2 6.4-2 9-1v13.6c-2.6-1-5.6-1-9 1-3.4-2-6.4-2-9-1z"/><path d="M12 6.6v13.6"/>',
     check: '<path d="M5 12.5l4.5 4.5L19 7.5"/>',
     lessons: '<path d="M8 6h12M8 12h12M8 18h12"/><circle cx="4" cy="6" r="1"/><circle cx="4" cy="12" r="1"/><circle cx="4" cy="18" r="1"/>',
-    teacher: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6"/>'
+    teacher: '<circle cx="12" cy="8" r="4"/><path d="M4 21c1.2-4 4.3-6 8-6s6.8 2 8 6"/>',
+    lessonDoc: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h4"/><path d="M14 3v4a1 1 0 0 0 1 1h4"/><path d="M19 8v3M9 9h2M9 13h4"/><rect x="13" y="14" width="8" height="7" rx="1.5"/><path d="M15.5 16.5h3M15.5 18.5h2"/>'
   };
 
   var BADGES = {
@@ -198,13 +210,15 @@
     code: '<path d="M8.5 4C6.5 4 6 5 6 7v2.5C6 11 5 12 3.5 12 5 12 6 13 6 14.5V17c0 2 .5 3 2.5 3M15.5 4c2 0 2.5 1 2.5 3v2.5c0 1.5 1 2.5 2.5 2.5-1.5 0-2.5 1-2.5 2.5V17c0 2-.5 3-2.5 3"/>',
     branches: '<circle cx="6" cy="5" r="2.2"/><circle cx="6" cy="19" r="2.2"/><circle cx="18" cy="6.5" r="2.2"/><path d="M6 7.2v9.6M18 8.7c0 5.3-6.5 4-11 8.3"/>',
     terminal: '<path d="M4 6.5l5.5 5.5L4 17.5M12 18h8"/>',
-    chart: '<path d="M5 19v-6M10 19V5M15 19v-9M20 19v-4"/>'
+    chart: '<path d="M5 19v-6M10 19V5M15 19v-9M20 19v-4"/>',
+    document: '<path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><circle cx="10" cy="11" r="1.8"/><path d="M8 16h8M13.5 11H16"/>'
   };
 
   /* Pick a cover style from the course's "cover" field, or guess from its tags */
   function coverKind(course) {
     if (course.cover && BADGES[course.cover]) return course.cover;
     var tags = (course.tags || course.skills || []).join(" ").toLowerCase() + " " + course.title.toLowerCase();
+    if (/resume|career|job|interview|\bcv\b/.test(tags)) return "document";
     if (/git|version/.test(tags)) return "branches";
     if (/linux|terminal|bash|shell|command/.test(tags)) return "terminal";
     if (/html|css|web/.test(tags)) return "web";
@@ -284,6 +298,18 @@
       xs.forEach(function (x) { art += '<circle cx="' + x + '" cy="' + ys + '" r="7" fill="#071548" stroke="' + light + '" stroke-width="3"/>'; });
       [170, 210].forEach(function (x) { art += '<circle cx="' + x + '" cy="60" r="7" fill="#071548" stroke="' + accent + '" stroke-width="3"/>'; });
       art += '<circle cx="290" cy="' + ys + '" r="9" fill="' + accent + '"/>';
+    } else if (kind === "document") {
+      art = '<g transform="rotate(-6 250 95)"><rect x="176" y="18" width="128" height="160" rx="6" fill="#0d2378" stroke="' + bright + '" stroke-opacity=".6"/></g>' +
+        '<rect x="196" y="14" width="132" height="168" rx="6" fill="#f8fbff"/>' +
+        '<circle cx="222" cy="42" r="13" fill="' + accent + '" fill-opacity=".9"/>' +
+        '<rect x="243" y="32" width="66" height="8" rx="4" fill="#0b1f6b"/>' +
+        '<rect x="243" y="46" width="44" height="6" rx="3" fill="#8aa0cc"/>' +
+        '<rect x="210" y="70" width="40" height="6" rx="3" fill="' + accent + '"/>';
+      for (var r = 0; r < 6; r++) {
+        art += '<rect x="210" y="' + (84 + r * 11 + (r > 2 ? 12 : 0)) + '" width="' + (60 + rnd() * 44).toFixed(0) + '" height="5" rx="2.5" fill="#b8c6e3"/>';
+      }
+      art += '<rect x="210" y="114" width="40" height="6" rx="3" fill="' + accent + '"/>' +
+        '<path d="M120 120l14 14 28-32" fill="none" stroke="' + accent + '" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>';
     } else {
       art = win(104, 20, 236, 142, "#050b26") +
         '<g font-family="ui-monospace, Menlo, Consolas, monospace" font-size="13" fill="' + light + '">' +
@@ -378,11 +404,64 @@
     return out;
   }
 
+  function isProject(lesson) {
+    return String(lesson.type || "").toLowerCase() === "project";
+  }
+
+  function projectCountText(n) {
+    return n === 1 ? t("oneProject") : t("projectsCount", { n: n });
+  }
+
+  /* "Course Outline": one card per module, with L1/L2... and P badges */
+  function outlineHtml(course, s) {
+    var counts = '<p class="outline-counts">' +
+      (s.lessons ? "<span>" + svgIcon(ICONS.lessonDoc) + lessonCountText(s.lessons) + "</span>" : "") +
+      (s.projects ? "<span>" + svgIcon(ICONS.course) + projectCountText(s.projects) + "</span>" : "") + "</p>";
+    var n = 0, pn = 0, projTotal = s.projects;
+    function pill(lesson) {
+      if (isProject(lesson)) { pn++; return '<span class="pill pill-project">' + t("projectPill") + (projTotal > 1 ? pn : "") + "</span>"; }
+      n++;
+      return '<span class="pill">' + t("lessonPill", { n: n }) + "</span>";
+    }
+    var html = '<section class="outline"><div class="outline-head"><h2>' + t("courseOutline") + "</h2>" + counts + "</div>";
+    course.modules.forEach(function (m, mi) {
+      html += '<div class="outline-module"><h3 class="outline-title">' + esc(m.title) +
+        (m.summary ? '<span class="outline-sub">' + esc(m.summary) + "</span>" : "") + '</h3><ol class="outline-list">';
+      (m.lessons || []).forEach(function (l) {
+        var done = isDone(course.id, l.id);
+        var isNext = !done && s.next && s.next.lesson.id === l.id;
+        var meta = done ? '<span class="outline-meta is-done">' + svgIcon(ICONS.check) + t("done") + "</span>" :
+          isNext ? '<span class="outline-meta is-next">' + t("upNext") + (l.minutes ? ", " + t("minutesShort", { n: l.minutes }) : "") + "</span>" :
+          (l.minutes ? '<span class="outline-meta">' + t("minutesShort", { n: l.minutes }) + "</span>" : "");
+        html += '<li class="outline-row' + (done ? " done" : "") + '">' + pill(l) +
+          '<div class="outline-name"><a href="' + href("course", course.id, l.id) + '">' + esc(l.title) + "</a>" + meta + "</div>" +
+          '<p class="outline-desc">' + (l.summary ? inlineMd(l.summary) : "") + "</p></li>";
+      });
+      // A course-level "project" (not a lesson page) is listed at the end of the last module
+      if (course.project && mi === course.modules.length - 1) {
+        var p = course.project;
+        pn++;
+        html += '<li class="outline-row">' + '<span class="pill pill-project">' + t("projectPill") + (projTotal > 1 ? pn : "") + "</span>" +
+          '<div class="outline-name">' + (p.url ? '<a href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.title || t("project")) + "</a>" :
+            '<span class="outline-plain">' + esc(p.title || t("project")) + "</span>") +
+          (p.url ? '<span class="outline-meta">' + esc(p.button || t("openProject")) + "</span>" : "") + "</div>" +
+          '<p class="outline-desc">' + (p.description ? inlineMd(p.description) : "") + "</p></li>";
+      }
+      html += "</ol></div>";
+    });
+    return html + "</section>";
+  }
+
+  function doneText(s) {
+    return t(s.projectLessons ? "stepsDone" : "lessonsDone", { total: s.total });
+  }
+
   function stats(course) {
     var list = flatLessons(course);
-    var done = 0, next = null, minutes = 0, lastDoneAt = null;
+    var done = 0, next = null, minutes = 0, lastDoneAt = null, projects = 0;
     list.forEach(function (item) {
       minutes += Number(item.lesson.minutes) || 0;
+      if (isProject(item.lesson)) projects++;
       if (isDone(course.id, item.lesson.id)) {
         done++;
         var at = progress[course.id].done[item.lesson.id];
@@ -398,6 +477,9 @@
       done: done,
       next: next,
       minutes: minutes,
+      lessons: list.length - projects,
+      projects: projects + (course.project ? 1 : 0),
+      projectLessons: projects,
       finished: list.length > 0 && done === list.length,
       lastDoneAt: lastDoneAt
     };
@@ -662,7 +744,7 @@
     var status;
     if (s.finished) status = '<span class="card-status finished">' + svgIcon(ICONS.check) + " " + t("completed") + "</span>";
     else if (s.done > 0) status = '<span class="card-status started">' + t("percentDone", { n: Math.round(s.done / s.total * 100) }) + "</span>";
-    else status = '<span class="card-status">' + lessonCountText(s.total) + "</span>";
+    else status = '<span class="card-status">' + lessonCountText(s.lessons || s.total) + "</span>";
 
     return '<li class="card"' + lineStyle(c) + '><a href="' + href("course", c.id) + '">' +
       '<div class="card-main">' +
@@ -699,7 +781,8 @@
     }
     var facts = "";
     if (course.level) facts += fact(ICONS.level, t("level"), esc(course.level));
-    facts += fact(ICONS.lessons, t("lessons"), s.total);
+    facts += fact(ICONS.lessons, t("lessons"), s.lessons);
+    if (s.projects) facts += fact(ICONS.course, t("projectWord"), s.projects);
     if (s.minutes) facts += fact(ICONS.duration, t("time"), formatTime(s.minutes));
     var teacher = course.teacher || SITE.teacher;
     if (teacher) facts += fact(ICONS.teacher, t("teacher"), esc(teacher));
@@ -712,13 +795,6 @@
     if (course.outcomes && course.outcomes.length) {
       aside += '<section class="panel aside-block"><h2>' + t("outcomes") + '</h2><ul class="outcomes">' +
         course.outcomes.map(function (o) { return "<li>" + inlineMd(o) + "</li>"; }).join("") + "</ul></section>";
-    }
-    if (course.project) {
-      var p = course.project;
-      aside += '<section class="panel aside-block"><h2>' + esc(p.title || t("project")) + "</h2>" +
-        (p.description ? "<p>" + inlineMd(p.description) + "</p>" : "") +
-        (p.url ? '<a class="btn btn-quiet" href="' + esc(p.url) + '" target="_blank" rel="noopener">' + esc(p.button || t("openProject")) + "</a>" : "") +
-        "</section>";
     }
 
     main.innerHTML =
@@ -734,7 +810,7 @@
             "</div>" +
             '<div class="progress-card">' +
               coverHtml(course) +
-              '<p class="count"><strong>' + s.done + "</strong> " + t("lessonsDone", { total: s.total }) + "</p>" +
+              '<p class="count"><strong>' + s.done + "</strong> " + doneText(s) + "</p>" +
               routeH(course, s) +
               (target ? '<a class="btn" href="' + href("course", course.id, target.lesson.id) + '">' + esc(buttonLabel) + "</a>" : "") +
             "</div>" +
@@ -742,7 +818,7 @@
         "</div>" +
       "</section>" +
       '<div class="wrap course-body"' + lineStyle(course) + ">" +
-        '<section class="panel syllabus"><h2>' + t("syllabus") + "</h2>" + routeV(course, s, null) + "</section>" +
+        outlineHtml(course, s) +
         '<aside class="course-aside">' + aside + "</aside>" +
       "</div>";
   }
@@ -769,7 +845,7 @@
         '<div class="lesson-layout">' +
           '<details class="lesson-nav"' + (wide ? " open" : "") + ">" +
             '<summary><span class="nav-course">' + esc(course.title) + "</span>" +
-              '<span class="nav-count">' + s.done + " " + t("lessonsDone", { total: s.total }) + "</span></summary>" +
+              '<span class="nav-count">' + s.done + " " + doneText(s) + "</span></summary>" +
             routeH(course, s) +
             routeV(course, s, lesson.id) +
             '<p><a class="prev-link" href="' + href("course", course.id) + '">' + t("backToCourse") + "</a></p>" +
@@ -778,11 +854,17 @@
             '<header class="lesson-head">' +
               '<p class="where">' + esc(item.module.title) + "</p>" +
               '<h1 tabindex="-1">' + esc(lesson.title) + "</h1>" +
-              '<p class="lesson-facts">' + t("lessonOf", { i: item.index + 1, n: s.total }) +
+              '<p class="lesson-facts">' + (isProject(lesson) ? t("projectWord") :
+                t("lessonOf", { i: s.list.slice(0, item.index + 1).filter(function (x) { return !isProject(x.lesson); }).length, n: s.lessons })) +
                 (lesson.minutes ? "<span aria-hidden=\"true\">&ensp;/&ensp;</span>" + t("minutesShort", { n: lesson.minutes }) : "") + "</p>" +
             "</header>" +
             videoHtml(lesson) +
             '<div class="prose" id="lesson-body"><p class="loading" style="padding:0">' + t("loading") + "</p></div>" +
+            (isProject(lesson) ?
+              '<section class="submit-box"><h2>' + t("readyToSubmit") + "</h2>" +
+                (lesson.submitUrl ? "<p>" + t("submitText") + '</p><a class="btn" href="' + esc(lesson.submitUrl) + '" target="_blank" rel="noopener">' + t("submitProject") + "</a>" :
+                  "<p>" + t("submitHint") + "</p>") +
+              "</section>" : "") +
             '<div class="lesson-actions" id="lesson-actions"></div>' +
             (prev ? '<a class="prev-link" href="' + href("course", course.id, prev.lesson.id) + '">' + esc(t("previous", { title: prev.lesson.title })) + "</a>" : "") +
           "</article>" +
@@ -799,6 +881,8 @@
       quizzes = parsed.quizzes;
       body.innerHTML = window.marked ? marked.parse(parsed.markdown) : "<pre>" + esc(parsed.markdown) + "</pre>";
       fixRelativeLinks(body, course);
+      // Let students tick Markdown checklists (- [ ] item) while they work
+      body.querySelectorAll('li > input[type="checkbox"][disabled]').forEach(function (box) { box.disabled = false; });
       body.querySelectorAll(".quiz-slot").forEach(function (slot) {
         var n = Number(slot.getAttribute("data-quiz"));
         slot.replaceWith(buildQuiz(course, lesson, quizzes[n], n, updateActions));
@@ -862,7 +946,7 @@
       if (!nav) return;
       var open = nav.open;
       var s2 = stats(course);
-      nav.querySelector(".nav-count").textContent = s2.done + " " + t("lessonsDone", { total: s2.total });
+      nav.querySelector(".nav-count").textContent = s2.done + " " + doneText(s2);
       nav.querySelector(".route-h").outerHTML = routeH(course, s2);
       nav.querySelector(".route-v").outerHTML = routeV(course, s2, lesson.id);
       nav.open = open;
@@ -1078,7 +1162,7 @@
         '<div class="cert-foot">' +
           "<div>" + t("certDate") + "<strong>" + esc(dateText) + "</strong></div>" +
           (teacher ? "<div>" + t("certTeacher") + "<strong>" + esc(teacher) + "</strong></div>" : "") +
-          "<div>" + esc(SITE.title || "") + "<strong>" + lessonCountText(s.total) + (s.minutes ? ", " + formatTime(s.minutes).toLowerCase() : "") + "</strong></div>" +
+          "<div>" + esc(SITE.title || "") + "<strong>" + lessonCountText(s.lessons) + (s.projects ? ", " + projectCountText(s.projects) : "") + (s.minutes ? ", " + formatTime(s.minutes).toLowerCase() : "") + "</strong></div>" +
         "</div>" +
         '<div class="cert-route">' + routeH(course, s) + "</div>" +
       "</div></div>";

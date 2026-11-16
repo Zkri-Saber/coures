@@ -708,6 +708,101 @@ p { margin: 0; text-wrap: pretty; }
 .aside-block .btn { margin-top: 1rem; }
 .aside-block.finished { border-inline-start: 6px solid var(--line); }
 
+/* Course outline */
+.outline-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 0.75rem 2rem;
+  margin-bottom: 1.5rem;
+}
+.outline-head h2 {
+  margin: 0;
+  font-size: clamp(1.9rem, 3.6vw, 2.6rem);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+}
+.outline-counts { display: flex; flex-wrap: wrap; gap: 0.5rem 2rem; font-size: 1.15rem; color: var(--ink); }
+.outline-counts span { display: inline-flex; align-items: center; gap: 0.55rem; }
+.outline-counts .icon { color: var(--ink-3); width: 1.4rem; height: 1.4rem; }
+.outline-module {
+  border: 1px solid color-mix(in srgb, var(--line) 75%, white);
+  border-radius: 12px;
+  background: #f8fafc;
+  overflow: hidden;
+}
+.outline-module + .outline-module { margin-top: 1.5rem; }
+.outline-title {
+  margin: 0;
+  padding: 1.5rem 2.25rem;
+  background: var(--surface);
+  border-bottom: 1px solid var(--rule);
+  font-size: 1.5rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.outline-sub { display: block; margin-top: 0.2rem; font-size: 0.95rem; font-weight: 400; letter-spacing: 0; color: var(--ink-3); }
+.outline-list { list-style: none; margin: 0; padding: 1.5rem 2.25rem; }
+.outline-row {
+  display: grid;
+  grid-template-columns: 3.4rem minmax(0, 0.85fr) minmax(0, 1.35fr);
+  gap: 0.4rem 1.75rem;
+  align-items: start;
+  padding: 1.15rem 0;
+  border-top: 1px solid #dbe4f3;
+}
+.outline-row:last-child { padding-bottom: 0.4rem; }
+.pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 2.4rem;
+  height: 1.55rem;
+  margin-top: 0.1rem;
+  padding: 0 0.55rem;
+  border-radius: 999px;
+  background: #1d4ed8;
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 700;
+  justify-self: start;
+}
+.pill-project { background: #f7931e; }
+.outline-name a, .outline-plain {
+  color: var(--ink);
+  font-weight: 600;
+  font-size: 1.05rem;
+  text-decoration: none;
+}
+.outline-name a:hover { text-decoration: underline; }
+.outline-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  margin-top: 0.2rem;
+  font-size: 0.85rem;
+  color: var(--ink-3);
+}
+.outline-meta .icon { width: 1rem; height: 1rem; }
+.outline-meta.is-done { color: var(--ok); font-weight: 600; }
+.outline-meta.is-next { color: var(--action); font-weight: 600; }
+.outline-row.done .outline-name a { color: var(--ink-2); }
+.outline-desc { color: var(--text); font-size: 1.02rem; }
+
+/* Project submission box */
+.submit-box {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-inline-start: 5px solid #f7931e;
+  border-radius: 12px;
+}
+.submit-box h2 { font-size: var(--t-md); margin-bottom: 0.4rem; }
+.submit-box p { color: var(--ink-2); }
+.submit-box .btn { margin-top: 1rem; }
+
 /* ---------- Lesson page ---------- */
 
 .lesson-layout {
@@ -785,6 +880,8 @@ p { margin: 0; text-wrap: pretty; }
 .prose h2 + *, .prose h3 + * { margin-top: 0.6em; }
 .prose ul, .prose ol { padding-inline-start: 1.4em; }
 .prose li + li { margin-top: 0.35em; }
+.prose li:has(> input[type="checkbox"]) { list-style: none; margin-inline-start: -1.4em; }
+.prose li > input[type="checkbox"] { margin-inline-end: 0.55em; accent-color: var(--action); vertical-align: -0.1em; }
 .prose li::marker { color: var(--ink-3); }
 .prose a { color: var(--blue); }
 .prose strong { font-weight: 650; color: var(--ink); }
@@ -1055,7 +1152,10 @@ p { margin: 0; text-wrap: pretty; }
   .results-tools { width: 100%; }
   .lesson-actions .buttons, .lesson-actions .buttons .btn { width: 100%; }
   .quiz { padding: 1.1rem; }
-  .course-body .syllabus { padding: 1.25rem 1.1rem 0.75rem; }
+  .outline-title { padding: 1.2rem 1.25rem; font-size: 1.25rem; }
+  .outline-list { padding: 1rem 1.25rem; }
+  .outline-row { grid-template-columns: 3rem minmax(0, 1fr); gap: 0.4rem 0.9rem; }
+  .outline-desc { grid-column: 2; }
   .certificate { aspect-ratio: auto; min-height: 26rem; }
   .certificate .cert-foot { flex-direction: column; margin-bottom: 2.5rem; }
 }

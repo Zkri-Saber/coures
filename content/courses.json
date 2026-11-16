@@ -141,6 +141,57 @@
           ]
         }
       ]
+    },
+    {
+      "id": "linux-basics",
+      "title": "Linux for beginners",
+      "summary": "Use the command line with confidence: move around the file system, manage files, install software and write your first script.",
+      "description": "Linux runs most of the internet, the core of every Android phone and all of the world's fastest supercomputers. You'll learn the command line from scratch, using a free Linux terminal on whatever computer you have.",
+      "level": "Beginner",
+      "color": "#C77700",
+      "tags": ["linux", "terminal", "command line", "bash", "ubuntu"],
+      "outcomes": [
+        "Explain what Linux is and where it's used",
+        "Open a Linux terminal on Windows, Chromebook, Mac or in the browser",
+        "Move around the file system and manage files and folders",
+        "Read file permissions and use sudo safely",
+        "Install software with a package manager",
+        "Combine commands with pipes and write a simple script"
+      ],
+      "project": {
+        "title": "Final project: your first shell script",
+        "description": "Write a script called `about-me.sh` that greets the user by name, shows today's date and lists the files in the home folder. Make it executable, run it, and send your teacher a screenshot.",
+        "url": "",
+        "button": "Submit your screenshot"
+      },
+      "modules": [
+        {
+          "title": "Meet Linux",
+          "summary": "What Linux is and how to get a terminal",
+          "lessons": [
+            { "id": "what-is-linux", "title": "What is Linux?", "minutes": 10, "video": "" },
+            { "id": "get-a-terminal", "title": "Get a Linux terminal", "minutes": 15, "video": "" }
+          ]
+        },
+        {
+          "title": "The command line",
+          "summary": "Commands, folders and files",
+          "lessons": [
+            { "id": "first-commands", "title": "Your first commands", "minutes": 15, "video": "" },
+            { "id": "finding-your-way", "title": "Finding your way around", "minutes": 20, "video": "" },
+            { "id": "working-with-files", "title": "Creating and managing files", "minutes": 25, "video": "" }
+          ]
+        },
+        {
+          "title": "Power tools",
+          "summary": "Permissions, software and scripts",
+          "lessons": [
+            { "id": "permissions-and-sudo", "title": "Permissions and sudo", "minutes": 20, "video": "" },
+            { "id": "installing-software", "title": "Installing software", "minutes": 15, "video": "" },
+            { "id": "pipes-and-scripts", "title": "Pipes, search and your first script", "minutes": 25, "video": "" }
+          ]
+        }
+      ]
     }
   ]
 }
